@@ -39,7 +39,7 @@ export class ParticlesBackgroundComponent {
       this.particleSpeed();
       this.linkDistance();
       this.linkOpacity();
-      
+
       // Reinitialize particles if they were already initialized
       if (this.particlesInitialized) {
         this.scheduleParticleInitialization(50);
@@ -95,14 +95,14 @@ export class ParticlesBackgroundComponent {
   private initParticles() {
     // Destroy existing particles first
     this.destroyParticles();
-    
+
     if (typeof particlesJS !== 'undefined') {
       particlesJS('particles-js', {
         particles: {
           number: {
             value: this.particleCount(),
             density: {
-              enable: true,
+              enable: false,
               value_area: 800,
             },
           },
