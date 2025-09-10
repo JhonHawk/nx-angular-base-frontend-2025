@@ -1,0 +1,103 @@
+@if (isCollapsed()) {
+  <!-- Collapsed state: Show floating menus for items with children -->
+  @if (hasChildren()) {
+    <!-- Items with children: Show as floating menu -->
+    <p-menu
+      #menu
+      [model]="transformMenuItem().items || []"
+      [popup]="true"
+      [appendTo]="'body'"
+    />
+    <div
+      [class]="collapsedClasses()"
+      [pTooltip]="tooltipText()"
+      tooltipPosition="right"
+      (click)="onMenuToggle($event, menu)"
+      (keyup.enter)="onMenuToggle($event, menu)"
+      (keyup.space)="onMenuToggle($event, menu)"
+      tabindex="0"
+      role="button"
+      [attr.aria-label]="tooltipText()"
+    >
+      <i [class]="item().icon + ' sidebar-icon'"></i>
+    </div>
+  } @else {
+    <!-- Items without children: Check if placeholder or regular link -->
+    @if (item().isPlaceholder) {
+      <!-- Placeholder items: Clickable div -->
+      <div
+        [class]="collapsedClasses()"
+        [pTooltip]="tooltipText()"
+        tooltipPosition="right"
+        (click)="onItemClick()"
+        (keyup.enter)="onItemClick()"
+        (keyup.space)="onItemClick()"
+        tabindex="0"
+        role="button"
+        [attr.aria-label]="tooltipText()"
+      >
+        <i [class]="item().icon + ' sidebar-icon'"></i>
+      </div>
+    } @else {
+      <!-- Regular items: Direct link -->
+      <a
+        [routerLink]="item().routerLink"
+        routerLinkActive="router-link-active"
+        [class]="collapsedClasses()"
+        [pTooltip]="tooltipText()"
+        tooltipPosition="right"
+        (click)="onItemClick()"
+      >
+        <i [class]="item().icon + ' sidebar-icon'"></i>
+      </a>
+    }
+  }
+} @else {
+  <!-- Expanded state: Show regular menu item with text -->
+  @if (hasChildren()) {
+    <!-- Items with children: Show as expandable item (handled by parent PanelMenu) -->
+    <div
+      [class]="expandedClasses()"
+      (click)="onItemClick()"
+      (keyup.enter)="onItemClick()"
+      (keyup.space)="onItemClick()"
+      tabindex="0"
+      role="button"
+      [attr.aria-label]="item().name"
+    >
+      <i [class]="item().icon + ' sidebar-icon'"></i>
+      <span>・</span>
+      <span>{{ item().name }}</span>
+    </div>
+  } @else {
+    <!-- Items without children: Check if placeholder or regular link -->
+    @if (item().isPlaceholder) {
+      <!-- Placeholder items: Clickable div -->
+      <div
+        [class]="expandedClasses()"
+        (click)="onItemClick()"
+        (keyup.enter)="onItemClick()"
+        (keyup.space)="onItemClick()"
+        tabindex="0"
+        role="button"
+        [attr.aria-label]="item().name"
+      >
+        <i [class]="item().icon + ' sidebar-icon'"></i>
+        <span>・</span>
+        <span>{{ item().name }}</span>
+      </div>
+    } @else {
+      <!-- Regular items: Direct link -->
+      <a
+        [routerLink]="item().routerLink"
+        routerLinkActive="router-link-active"
+        [class]="expandedClasses()"
+        (click)="onItemClick()"
+      >
+        <i [class]="item().icon + ' sidebar-icon'"></i>
+        <span>・</span>
+        <span>{{ item().name }}</span>
+      </a>
+    }
+  }
+}

@@ -1,0 +1,9 @@
+@reference "tailwindcss";
+
+:host {
+  @apply block;
+}
+
+.breadcrumb-container {
+  @apply flex items-center;
+}

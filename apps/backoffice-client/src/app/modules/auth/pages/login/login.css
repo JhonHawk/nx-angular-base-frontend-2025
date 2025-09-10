@@ -1,0 +1,22 @@
+:host ::ng-deep .p-card .p-card-body {
+  padding: 0 !important;
+}
+
+:host ::ng-deep .p-password-input {
+  width: 100%;
+}
+
+/* Background image utility class (cannot be replaced with standard utilities due to custom path) */
+.bg-orca-ai {
+  background-image: url('/assets/images/orca-ai.png');
+  background-position: left;
+}
+
+/* Mobile responsive overrides for PrimeNG grid (cannot be replaced with utilities) */
+@media (max-width: 768px) {
+  ::ng-deep .p-card .p-card-content .grid .col-6 {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
+  }
+}

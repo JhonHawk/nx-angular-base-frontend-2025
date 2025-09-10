@@ -1,0 +1,60 @@
+<orca-particles-background 
+  [backgroundColor]="backgroundColor()"
+  [particleColor]="particleColor()"
+  [particleCount]="80"
+  [particleSpeed]="1.0"
+  [linkDistance]="120"
+  [linkOpacity]="0.3">
+  
+  <div class="not-found-container">
+    <div class="not-found-content">
+      <!-- Error Code -->
+      <div class="error-code">
+        <span class="error-digit">4</span>
+        <span class="error-digit">0</span>
+        <span class="error-digit">4</span>
+      </div>
+      
+      <!-- Error Message -->
+      <div class="error-message">
+        <h1 class="error-title">Página no encontrada</h1>
+        <p class="error-description">
+          Lo sentimos, la página que buscas no existe o ha sido movida.
+          <br>
+          Puede que el enlace esté roto o que la página haya sido eliminada.
+        </p>
+      </div>
+      
+      <!-- Navigation Actions -->
+      <div class="error-actions">
+        <button 
+          type="button"
+          class="btn btn-primary"
+          (click)="goBack()">
+          <svg class="btn-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0L2.586 11a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 1.414L4.414 9H17a1 1 0 110 2H4.414l3.293 3.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+          </svg>
+          Volver atrás
+        </button>
+        
+        <button 
+          type="button"
+          class="btn btn-secondary"
+          (click)="goHome()">
+          <svg class="btn-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+          </svg>
+          Ir al inicio
+        </button>
+      </div>
+      
+      <!-- Help Text -->
+      <div class="error-help">
+        <p class="help-text">
+          Si crees que esto es un error, por favor contacta al administrador.
+        </p>
+      </div>
+    </div>
+  </div>
+  
+</orca-particles-background>

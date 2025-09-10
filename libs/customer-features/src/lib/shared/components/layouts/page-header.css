@@ -1,0 +1,5 @@
+@reference "tailwindcss";
+
+.page-header-container {
+  @apply min-h-[80px] w-full;
+}

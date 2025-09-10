@@ -1,0 +1,201 @@
+<div class="card">
+  <orca-page-header
+    title="Gestión de Usuarios Orca"
+    description="Administra los usuarios del equipo de Orca"
+  >
+  </orca-page-header>
+
+  <p-table
+    #dt
+    [value]="users() || []"
+    [rows]="rows()"
+    [totalRecords]="users().length"
+    [paginator]="true"
+    [globalFilterFields]="['email', 'firstName', 'lastName']"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    [rowHover]="true"
+    [stripedRows]="true"
+    dataKey="id"
+    currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} usuarios"
+    [showCurrentPageReport]="true"
+    [loading]="isLoading()"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center gap-2">
+          <p-button
+            icon="pi pi-refresh"
+            severity="secondary"
+            outlined
+            [rounded]="true"
+            pTooltip="Actualizar listado"
+            tooltipPosition="bottom"
+            (onClick)="refreshUsers()"
+          />
+          <p-button
+            icon="pi pi-download"
+            severity="secondary"
+            outlined
+            [rounded]="true"
+            pTooltip="Importar usuarios"
+            tooltipPosition="bottom"
+            (onClick)="importUsers()"
+          />
+          <p-button
+            icon="pi pi-upload"
+            severity="secondary"
+            outlined
+            [rounded]="true"
+            pTooltip="Exportar usuarios"
+            tooltipPosition="bottom"
+            (onClick)="exportCSV()"
+          />
+        </div>
+
+        <div class="flex items-center gap-4">
+          <p-iconfield>
+            <p-inputicon class="pi pi-search" />
+            <input
+              pInputText
+              type="text"
+              (input)="dt.filterGlobal($event.target.value, 'contains')"
+              placeholder="Buscar usuarios..."
+              class="w-80"
+            />
+          </p-iconfield>
+
+          <p-button label="Nuevo" icon="pi pi-plus" (onClick)="openNew()" />
+        </div>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="id" style="min-width: 8rem">
+          <div class="flex items-center gap-2">
+            ID
+            <p-sortIcon field="id" />
+          </div>
+        </th>
+        <th pSortableColumn="email" style="min-width: 16rem">
+          <div class="flex items-center gap-2">
+            Email
+            <p-sortIcon field="email" />
+          </div>
+        </th>
+        <th pSortableColumn="firstName" style="min-width: 12rem">
+          <div class="flex items-center gap-2">
+            Nombre
+            <p-sortIcon field="firstName" />
+          </div>
+        </th>
+        <th pSortableColumn="lastName" style="min-width: 12rem">
+          <div class="flex items-center gap-2">
+            Apellido
+            <p-sortIcon field="lastName" />
+          </div>
+        </th>
+        <th style="min-width: 10rem">Roles</th>
+        <th pSortableColumn="isActive" style="min-width: 10rem">
+          <div class="flex items-center gap-2">
+            Estado
+            <p-sortIcon field="isActive" />
+          </div>
+        </th>
+        <th style="min-width: 8rem">Login</th>
+        <th pSortableColumn="createdAt" style="min-width: 12rem">
+          <div class="flex items-center gap-2">
+            Creado
+            <p-sortIcon field="createdAt" />
+          </div>
+        </th>
+        <th style="min-width: 5rem; width: 5rem" class="text-center">Acciones</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-user>
+      <tr>
+        <td>{{ user.id }}</td>
+        <td>
+          <div class="flex items-center gap-2">
+            <i class="pi pi-envelope text-zinc-500"></i>
+            {{ user.email }}
+          </div>
+        </td>
+        <td>{{ user.firstName }}</td>
+        <td>{{ user.lastName }}</td>
+        <td>
+          <div class="flex flex-wrap gap-1">
+            @for (role of user.roles; track role) {
+              <p-tag [value]="role" severity="info" class="text-xs" />
+            }
+            @if (user.roles.length === 0) {
+              <span class="text-zinc-500 text-sm"> Sin roles </span>
+            }
+          </div>
+        </td>
+        <td>
+          <p-tag [value]="getUserStatusLabel(user)" [severity]="getUserStatusSeverity(user)" />
+        </td>
+        <td>
+          <div class="flex flex-col text-sm">
+            @if (getLastLoginDisplay(user)) {
+              <span class="text-zinc-600">
+                {{ getLastLoginDisplay(user) | date: 'short' }}
+              </span>
+            } @else {
+              <span class="text-zinc-400">Nunca</span>
+            }
+            @if (getFailedLoginAttempts(user) > 0) {
+              <span class="text-red-600 text-xs">
+                {{ getFailedLoginAttempts(user) }} intentos fallidos
+              </span>
+            }
+            @if (isUserLocked(user)) {
+              <p-tag value="BLOQUEADO" severity="danger" class="text-xs mt-1" />
+            }
+          </div>
+        </td>
+        <td>{{ user.createdAt | date: 'short' }}</td>
+        <td>
+          <div class="flex justify-center">
+            <p-button
+              (click)="showActionMenu($event, user, actionMenu)"
+              icon="pi pi-ellipsis-v"
+              [rounded]="true"
+              [outlined]="true"
+              size="small"
+              severity="secondary"
+              pTooltip="Acciones"
+              tooltipPosition="top"
+              [appendTo]="'body'"
+            />
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="9" class="text-center py-8">
+          <orca-empty-state
+            icon="waves"
+            iconSeverity="primary"
+            title="No se encontraron usuarios Orca"
+            message="Sumérjase en el equipo creando el primer usuario"
+            [showActionButton]="true"
+            actionButtonLabel="Nuevo Usuario"
+            actionButtonIcon="pi pi-plus"
+            context="default"
+            (actionClick)="openNew()"
+          />
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <!-- Action Menu (Global) -->
+  <p-menu #actionMenu [model]="menuItems()" [popup]="true" />
+
+  <!-- Confirm Dialog for Delete Actions -->
+  <p-confirmDialog [style]="{ width: '450px' }" />
+</div>

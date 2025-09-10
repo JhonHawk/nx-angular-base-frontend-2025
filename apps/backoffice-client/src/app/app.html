@@ -1,0 +1,49 @@
+<router-outlet></router-outlet>
+
+<!-- Global Orca User Creation Modal -->
+<p-dialog
+  [visible]="modalService.isOrcaUserModalVisible()()"
+  (visibleChange)="!$event && handleModalClose()"
+  header="Crear Usuario Orca Team"
+  [modal]="true"
+  [closable]="true"
+  [draggable]="false"
+  [resizable]="false"
+  styleClass="w-full max-w-4xl"
+>
+  <app-create-orca-user-modal
+    #orcaUserModal
+    (userCreated)="modalService.handleOrcaUserCreated($event)"
+    (cancelled)="handleModalClose()"
+  >
+  </app-create-orca-user-modal>
+</p-dialog>
+
+<!-- Global Client Creation Modal -->
+<p-dialog
+  [visible]="modalService.isClientModalVisible()()"
+  (visibleChange)="!$event && handleClientModalClose()"
+  header="Crear Nuevo Cliente"
+  [modal]="true"
+  [closable]="true"
+  [draggable]="false"
+  [resizable]="false"
+  styleClass="w-full max-w-4xl"
+>
+  <app-create-client-modal
+    #clientModal
+    (clientCreated)="modalService.handleClientCreated($event)"
+    (cancelled)="handleClientModalClose()"
+  >
+  </app-create-client-modal>
+</p-dialog>
+
+<!-- Toast notifications -->
+<p-toast
+  position="top-right"
+  [showTransitionOptions]="'250ms'"
+  [showTransformOptions]="'translateX(100%)'"
+  [hideTransitionOptions]="'150ms'"
+  [hideTransformOptions]="'translateX(100%)'"
+  class="fixed-toast"
+/>

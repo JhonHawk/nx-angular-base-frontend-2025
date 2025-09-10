@@ -1,0 +1,103 @@
+@reference "tailwindcss";
+
+/* Minimal sidebar styles - Most styling moved to Tailwind classes */
+/* Only keep styles that can't be easily achieved with Tailwind */
+
+:host {
+  /* Fix the sidebar width dynamically based on collapsed state */
+  width: var(--sidebar-width);
+  transition: width 0.3s ease-in-out;
+}
+
+aside {
+  /* Override the dynamic width based on collapsed state */
+  width: var(--sidebar-width, auto) !important;
+}
+
+/* CSS custom properties for dynamic width */
+:host(.collapsed) {
+  --sidebar-width: 80px;
+}
+
+:host(:not(.collapsed)) {
+  --sidebar-width: 320px;
+}
+
+
+/* Component-specific styles using @apply */
+.user-avatar {
+  @apply w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-medium mb-2;
+}
+
+.sidebar-action-button {
+  @apply flex items-center gap-1 cursor-pointer text-base rounded-lg transition-all select-none;
+  @apply text-gray-600 hover:bg-zinc-100 dark:text-gray-300 dark:hover:bg-zinc-700;
+  @apply bg-transparent dark:bg-transparent;
+}
+
+.sidebar-logout-button {
+  @apply flex items-center gap-1 cursor-pointer text-base rounded-lg transition-all select-none;
+  @apply text-red-500 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20;
+}
+
+/* Menu item styles for custom expanded menu */
+.sidebar-icon {
+  font-size: 18px;
+  color: currentColor;
+  transform: translateY(-1px);
+}
+
+.sidebar-menu-parent {
+  @apply flex items-center gap-1 px-4 py-1 text-base rounded-lg font-medium;
+  @apply text-zinc-700 dark:text-zinc-300;
+}
+
+.sidebar-menu-child {
+  @apply flex items-center gap-1 px-4 py-1 rounded-lg cursor-pointer transition-all;
+  @apply text-zinc-600 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700;
+}
+
+.sidebar-menu-child:hover {
+  @apply transform-none;
+}
+
+.sidebar-menu-child:focus {
+  @apply outline-none ring-2 ring-blue-500/20;
+}
+
+/* Router link active state */
+.sidebar-menu-child.router-link-active {
+  @apply bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400;
+}
+
+.sidebar-menu-child.router-link-active:hover {
+  @apply bg-blue-100 dark:bg-blue-900/30;
+}
+
+.sidebar-menu-child.router-link-active .sidebar-icon {
+  @apply text-blue-600 dark:text-blue-400;
+}
+
+/* Responsive behavior for mobile */
+@media (max-width: 768px) {
+  :host {
+    position: fixed;
+    top: 0;
+    left: -320px;
+    z-index: 1050;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: left 0.3s ease-in-out;
+  }
+
+  :host(.mobile-open) {
+    left: 0;
+  }
+
+  :host(.collapsed) {
+    left: -80px;
+  }
+
+  :host(.collapsed.mobile-open) {
+    left: 0;
+  }
+}

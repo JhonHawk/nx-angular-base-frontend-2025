@@ -1,0 +1,113 @@
+<!--<header-->
+<!--  class="rounded-t-2xl px-5 py-2 bg-zinc-50 dark:bg-zinc-900 h-auto flex flex-row justify-between items-center border border-zinc-200 dark:border-zinc-700 transition-all duration-300 ease-in-out w-auto"-->
+<!--&gt;-->
+<header
+  class="rounded-t-2xl px-5 py-2 bg-transparent h-auto flex flex-row justify-between items-center transition-all duration-300 ease-in-out w-auto"
+>
+  <!-- Left section - Sidebar Toggle & Breadcrumb -->
+  <div class="flex items-center gap-4">
+    <button
+      type="button"
+      class="top-menu-btn"
+      (click)="toggleSidebar()"
+      [pTooltip]="isSidebarCollapsed() ? 'Expandir menú' : 'Contraer menú'"
+      tooltipPosition="bottom"
+    >
+      <i
+        [class]="isSidebarCollapsed() ? 'pi pi-angle-right' : 'pi pi-angle-left'"
+        class="sidebar-icon"
+      ></i>
+    </button>
+
+    <!-- Breadcrumb Navigation -->
+    <orca-breadcrumb />
+  </div>
+
+  <!-- Right section - Controls -->
+  <div class="flex items-center gap-3">
+    <!-- Organization Selector (only show if service is available) -->
+    @if (hasOrganizationSelector()) {
+      <div class="organization-selector">
+        <button
+          type="button"
+          class="top-menu-btn organization-btn"
+          (click)="toggleOrganizationPopover($event, orgPopover)"
+          pTooltip="Seleccionar organización"
+          tooltipPosition="bottom"
+        >
+          <i class="pi pi-building sidebar-icon"></i>
+          <span class="organization-text">{{ selectedOrganizationText() }}</span>
+        </button>
+
+        <p-popover #orgPopover>
+          <div class="organization-popover">
+            <div class="organization-header">
+              <span class="font-medium text-sm text-zinc-700 dark:text-zinc-300">Organizaciones</span>
+            </div>
+            <ul class="organization-list">
+              @for (option of organizationOptions(); track option.id) {
+                <li 
+                  class="organization-item"
+                  [class.selected]="selectedOrganization()?.id === option.id"
+                  [class.orca-option]="option.isOrcaOption"
+                  (click)="selectOrganization(option.id, orgPopover)"
+                >
+                  @if (option.isOrcaOption) {
+                    <i class="pi pi-home organization-icon"></i>
+                  } @else {
+                    <i class="pi pi-building organization-icon"></i>
+                  }
+                  <div class="organization-info">
+                    <span class="organization-name">{{ option.name }}</span>
+                  </div>
+                  @if (selectedOrganization()?.id === option.id) {
+                    <i class="pi pi-check ml-auto text-green-600"></i>
+                  }
+                </li>
+              }
+            </ul>
+          </div>
+        </p-popover>
+      </div>
+    }
+
+    <!-- Dark Mode Toggle -->
+    <button
+      type="button"
+      class="top-menu-btn"
+      (click)="toggleDarkMode()"
+      tooltipPosition="bottom"
+    >
+      <i [class]="isDarkMode() ? 'pi pi-sun' : 'pi pi-moon'" class="sidebar-icon"></i>
+    </button>
+
+    <!-- Help Button -->
+    <button
+      type="button"
+      class="top-menu-btn"
+      (click)="showHelp()"
+      pTooltip="Ayuda"
+      tooltipPosition="bottom"
+    >
+      <i class="pi pi-question-circle sidebar-icon"></i>
+    </button>
+
+    <!-- Notifications -->
+    <div class="relative">
+      <button
+        type="button"
+        class="top-menu-btn opacity-50"
+        pTooltip="Notificaciones"
+        tooltipPosition="bottom"
+        disabled
+      >
+        <i class="pi pi-bell sidebar-icon"></i>
+        <!-- Badge for notifications count -->
+        <span
+          class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-medium px-1.5 py-0.5 rounded-full min-w-5 h-5 flex items-center justify-center"
+          >3</span
+        >
+      </button>
+    </div>
+  </div>
+</header>

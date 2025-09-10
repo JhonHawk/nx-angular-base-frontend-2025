@@ -1,0 +1,72 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run build:all:*)",
+      "Bash(nx build:*)",
+      "Bash(nx lint:*)",
+      "Bash(npm run test:all:*)",
+      "Bash(find:*)",
+      "Bash(nx test:*)",
+      "mcp__angular-cli__get_best_practices",
+      "Bash(nx generate:*)",
+      "Bash(npm run build:libs:*)",
+      "mcp__nx-mcp__nx_workspace_path",
+      "mcp__nx-mcp__nx_workspace",
+      "Bash(npm run test:*)",
+      "Bash(npx jest:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npm run lint:*)",
+      "Bash(node:*)",
+      "Bash(timeout 60s npm run build:libs)",
+      "Bash(npm run build:customer:*)",
+      "Bash(npm run build:backoffice:*)",
+      "Bash(npm install)",
+      "Bash(grep:*)",
+      "Bash(npx nx test:*)",
+      "Bash(npx nx lint:*)",
+      "Bash(timeout 60s npm run build:backoffice)",
+      "Bash(npm run start:backoffice:*)",
+      "Bash(taskkill:*)",
+      "Bash(npx nx serve:*)",
+      "mcp__angular-cli__search_documentation",
+      "Bash(dir tail:*)",
+      "Bash(nx reset:*)",
+      "Read(*)",
+      "Bash(copy:*)",
+      "Bash(timeout:*)",
+      "Bash(ng version)",
+      "Bash(npm install:*)",
+      "Bash(ng update:*)",
+      "Bash(npx @angular/cli@latest update --all --force)",
+      "Bash(npm outdated)",
+      "Bash(npm update:*)",
+      "Bash(npm ls:*)",
+      "Bash(npx prettier:*)",
+      "mcp__nx-mcp__nx_docs",
+      "Bash(nx format:write:*)",
+      "Bash(npm run format:*)",
+      "Bash(git config:*)",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": [],
+    "additionalDirectories": [
+      "X:\\orca\\orca-sns-frontend-web"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "angular-cli"
+  ],
+  "activeAgent": "frontend-developer",
+  "agents": {
+    "frontend-developer": {
+      "path": ".claude/agents/frontend-developer.md",
+      "triggers": [
+        "*.component.ts",
+        "*.service.ts",
+        "*.html"
+      ]
+    }
+  }
+}

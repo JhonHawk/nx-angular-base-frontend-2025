@@ -1,0 +1,79 @@
+@reference "tailwindcss";
+
+.not-found-container {
+  @apply min-h-screen flex items-center justify-center px-6;
+  position: relative;
+  z-index: 10;
+}
+
+.not-found-content {
+  @apply max-w-2xl w-full text-center;
+  animation: fadeInUp 1s ease-out;
+}
+
+.error-code {
+  @apply flex items-center justify-center gap-4 mb-8;
+}
+
+.error-digit {
+  @apply text-9xl md:text-[12rem] font-black bg-gradient-to-br from-blue-600 to-purple-600;
+  @apply bg-clip-text text-transparent drop-shadow-lg;
+  line-height: 0.8;
+  animation: bounceIn 1.2s ease-out;
+}
+
+.error-digit:nth-child(2) { @apply from-purple-600 to-pink-600; animation-delay: 0.2s; }
+.error-digit:nth-child(3) { @apply from-pink-600 to-red-600; animation-delay: 0.3s; }
+
+.error-message { @apply mb-12; }
+.error-title { @apply text-3xl md:text-4xl font-bold mb-4 text-zinc-900 dark:text-white; }
+.error-description { @apply text-lg md:text-xl leading-relaxed text-zinc-600 dark:text-zinc-300 max-w-lg mx-auto; }
+.error-actions { @apply flex flex-col sm:flex-row items-center justify-center gap-4 mb-8; }
+
+.btn {
+  @apply inline-flex items-center justify-center gap-2 px-6 py-3;
+  @apply font-semibold text-base rounded-lg transition-all duration-200;
+  @apply focus:outline-none focus:ring-4 disabled:opacity-50;
+  @apply min-w-[140px] sm:min-w-[160px];
+}
+
+.btn-icon { @apply w-5 h-5 flex-shrink-0; }
+
+.btn-primary {
+  @apply bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500/50;
+  @apply shadow-lg hover:shadow-xl transform hover:scale-105;
+}
+
+.btn-secondary {
+  @apply bg-zinc-200 text-zinc-900 dark:bg-zinc-700 dark:text-white;
+  @apply hover:bg-zinc-300 dark:hover:bg-zinc-600 focus:ring-zinc-500/50;
+  @apply shadow-lg hover:shadow-xl transform hover:scale-105;
+}
+
+.error-help { @apply border-t border-zinc-200 dark:border-zinc-700 pt-8; }
+.help-text { @apply text-sm text-zinc-500 dark:text-zinc-400 max-w-md mx-auto; }
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounceIn {
+  0% { opacity: 0; transform: scale(0.3) translateY(-50px); }
+  50% { opacity: 1; transform: scale(1.05) translateY(0); }
+  70% { transform: scale(0.98); }
+  100% { transform: scale(1); }
+}
+
+@media (max-width: 640px) {
+  .error-digit { @apply text-7xl; }
+  .error-code { @apply gap-2 mb-6; }
+  .error-title { @apply text-2xl mb-3; }
+  .error-description { @apply text-base px-4; }
+  .btn { @apply w-full py-4 text-lg; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .not-found-content, .error-digit { animation: none; }
+  .btn { @apply transform-none; transition: background-color 0.2s; }
+  .btn:hover { @apply transform-none; }
+}

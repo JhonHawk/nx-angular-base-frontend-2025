@@ -1,0 +1,38 @@
+<div class="empty-state-container"
+     [class.loading]="loading()"
+     [class.context-error]="context() === 'error'"
+     [class.context-success]="context() === 'success'"
+     [class.context-info]="context() === 'info'">
+  <div class="empty-state-content">
+    <!-- Icon with animated background circle -->
+    <div class="icon-wrapper">
+      <div class="icon-background"></div>
+      @if (isMateriIcon()) {
+        <span [class]="getIconClasses()">{{ icon() }}</span>
+      } @else {
+        <i [class]="getIconClasses()"></i>
+      }
+    </div>
+
+    <!-- Content with PrimeNG typography -->
+    <div class="content-wrapper">
+      <h3 class="empty-state-title">{{ title() }}</h3>
+      @if (message()) {
+        <p class="empty-state-message">{{ message() }}</p>
+      }
+    </div>
+
+    <!-- PrimeNG Button with proper severity -->
+    @if (showActionButton()) {
+      <div class="action-wrapper">
+        <p-button
+          [label]="actionButtonLabel()"
+          [icon]="actionButtonIcon()"
+          [severity]="actionButtonSeverity()"
+          class="empty-state-button"
+          (onClick)="onActionClick()"
+        />
+      </div>
+    }
+  </div>
+</div>

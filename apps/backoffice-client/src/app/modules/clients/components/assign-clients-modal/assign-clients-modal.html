@@ -1,0 +1,69 @@
+<div class="assign-clients-modal p-4">
+  <div class="mb-4">
+    <h3 class="text-lg font-semibold text-zinc-900 dark:text-white mb-2">
+      Asignar Usuario Responsable
+    </h3>
+    <p class="text-sm text-zinc-600 dark:text-zinc-400">
+      @if (clientsToAssign.length === 1) {
+        Seleccione un usuario responsable para el cliente seleccionado.
+      } @else {
+        Seleccione un usuario responsable para los {{ clientsToAssign.length }} clientes
+        seleccionados.
+      }
+    </p>
+  </div>
+
+  <div class="mb-6">
+    @if (loading()) {
+      <div class="flex items-center justify-center py-4">
+        <p-progressspinner [style]="{ width: '2rem', height: '2rem' }" styleClass="w-8 h-8" />
+        <span class="ml-2 text-sm text-zinc-600 dark:text-zinc-400">Cargando usuarios...</span>
+      </div>
+    } @else if (error()) {
+      <div
+        class="p-3 bg-red-50 border border-red-200 rounded-lg dark:bg-red-950 dark:border-red-800"
+      >
+        <p class="text-sm text-red-700 dark:text-red-300">
+          Error al cargar los usuarios: {{ error()?.message }}
+        </p>
+      </div>
+    } @else {
+      <p-floatlabel variant="on">
+        <p-select
+          id="responsibleUser"
+          [(ngModel)]="selectedUserId"
+          [options]="userOptions"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Seleccione un usuario"
+          class="w-full"
+          [style]="{ width: '100%' }"
+        />
+        <label for="responsibleUser">Usuario Responsable</label>
+      </p-floatlabel>
+    }
+  </div>
+
+  <div class="flex justify-end gap-2">
+    <button
+      type="button"
+      pButton
+      label="Cancelar"
+      severity="secondary"
+      (click)="onCancel()"
+      class="px-4 py-2"
+    >
+      Cancelar
+    </button>
+    <button
+      type="button"
+      pButton
+      label="Asignar"
+      (click)="onAssign()"
+      [disabled]="!selectedUserId || loading()"
+      class="px-4 py-2"
+    >
+      Asignar
+    </button>
+  </div>
+</div>

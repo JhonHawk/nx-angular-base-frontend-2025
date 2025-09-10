@@ -1,0 +1,207 @@
+<!-- Create Orca User Form -->
+<div class="p-8 bg-white dark:bg-zinc-900">
+  <!-- Header -->
+  <div class="mb-8">
+    <div
+      class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4"
+    >
+      <p class="text-sm text-blue-800 dark:text-blue-200">
+        @if (isEditMode()) {
+          <i class="pi pi-info-circle mr-2"></i>
+          Solo se pueden actualizar: nombre, apellidos y teléfono. Para cambios de roles o email,
+          use las opciones específicas en la lista de usuarios.
+        } @else {
+          <i class="pi pi-lightbulb mr-2"></i>
+          Registre un nuevo usuario para el equipo de administración. El usuario recibirá un correo
+          con las credenciales de acceso. Asegúrese de asignar los roles apropiados.
+        }
+      </p>
+    </div>
+  </div>
+
+  <form [formGroup]="userForm">
+    <!-- Form Fields -->
+    <div class="space-y-6">
+      <!-- Fila 1: Usuario | Correo -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Username (Required) - Disabled in edit mode -->
+        <div>
+          <p-floatlabel variant="on">
+            <input
+              pInputText
+              id="username"
+              formControlName="username"
+              [class.ng-invalid]="isFieldInvalid('username')"
+              class="w-full"
+              [readonly]="isEditMode()"
+            />
+            <label for="username">Nombre de usuario *</label>
+          </p-floatlabel>
+          @if (isFieldInvalid('username')) {
+            <small class="text-red-600 mt-1 block">{{ getFieldError('username') }}</small>
+          }
+          @if (isEditMode()) {
+            <small class="text-gray-500 mt-1 block"
+              >El nombre de usuario no se puede modificar</small
+            >
+          }
+        </div>
+
+        <!-- Email (Required) -->
+        <div>
+          <p-floatlabel variant="on">
+            <input
+              pInputText
+              id="email"
+              type="email"
+              formControlName="email"
+              [class.ng-invalid]="isFieldInvalid('email')"
+              class="w-full"
+              [readonly]="isEditMode()"
+            />
+            <label for="email">Correo electrónico *</label>
+          </p-floatlabel>
+          @if (isFieldInvalid('email')) {
+            <small class="text-red-600 mt-1 block">{{ getFieldError('email') }}</small>
+          }
+          @if (isEditMode()) {
+            <small class="text-gray-500 mt-1 block"
+              >El correo electrónico no se puede modificar</small
+            >
+          }
+        </div>
+      </div>
+
+      <!-- Fila 2: Nombre -->
+      <div>
+        <p-floatlabel variant="on">
+          <input
+            pInputText
+            id="firstName"
+            formControlName="firstName"
+            [class.ng-invalid]="isFieldInvalid('firstName')"
+            class="w-full"
+          />
+          <label for="firstName">Nombre(s) *</label>
+        </p-floatlabel>
+        @if (isFieldInvalid('firstName')) {
+          <small class="text-red-600 mt-1 block">{{ getFieldError('firstName') }}</small>
+        }
+      </div>
+
+      <!-- Fila 3: Apellido Paterno | Apellido Materno -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Last Name (Required) -->
+        <div>
+          <p-floatlabel variant="on">
+            <input
+              pInputText
+              id="lastName"
+              formControlName="lastName"
+              [class.ng-invalid]="isFieldInvalid('lastName')"
+              class="w-full"
+            />
+            <label for="lastName">Apellido paterno *</label>
+          </p-floatlabel>
+          @if (isFieldInvalid('lastName')) {
+            <small class="text-red-600 mt-1 block">{{ getFieldError('lastName') }}</small>
+          }
+        </div>
+
+        <!-- Second Last Name (Optional) -->
+        <div>
+          <p-floatlabel variant="on">
+            <input pInputText id="secondLastName" formControlName="secondLastName" class="w-full" />
+            <label for="secondLastName">Apellido materno</label>
+          </p-floatlabel>
+        </div>
+      </div>
+
+      <!-- Fila 4: Telefono | Extensión -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Phone Number with Country Code (Optional) -->
+        <div>
+          <p-floatlabel variant="on">
+            <input
+              pInputText
+              id="phoneNumber"
+              formControlName="phoneNumber"
+              placeholder="+525551234567"
+              class="w-full"
+            />
+            <label for="phoneNumber">Número de teléfono</label>
+          </p-floatlabel>
+          @if (isFieldInvalid('phoneNumber')) {
+            <small class="text-red-600 mt-1 block">{{ getFieldError('phoneNumber') }}</small>
+          } @else {
+            <small class="text-zinc-500 mt-1 block"
+              >Incluir código de país (ej: +525551234567)</small
+            >
+          }
+        </div>
+
+        <!-- Phone Extension (Optional) -->
+        <div>
+          <p-floatlabel variant="on">
+            <input pInputText id="phoneExtension" formControlName="phoneExtension" class="w-full" />
+            <label for="phoneExtension">Extensión</label>
+          </p-floatlabel>
+        </div>
+      </div>
+
+      <!-- Fila 5: Roles asignados -->
+      @if (!isEditMode()) {
+        <div>
+          <div class="flex flex-col gap-2">
+            <label for="roleCodes" class="text-sm font-medium text-gray-700 dark:text-gray-300">
+              Roles asignados
+            </label>
+            <p-multiselect
+              id="roleCodes"
+              formControlName="roleCodes"
+              [options]="availableRoles()"
+              optionLabel="name"
+              optionValue="code"
+              placeholder="Seleccionar roles"
+              display="chip"
+              [showClear]="true"
+              class="w-full"
+            >
+            </p-multiselect>
+          </div>
+        </div>
+      }
+
+      @if (isEditMode()) {
+        <div>
+          <div
+            class="p-4 bg-amber-50 dark:bg-amber-900/20 rounded-lg border border-amber-200 dark:border-amber-800"
+          >
+            <div class="flex items-center gap-2">
+              <i class="pi pi-info-circle text-amber-600"></i>
+              <span class="text-sm text-amber-800 dark:text-amber-200">
+                Los roles no se pueden modificar en esta vista. Use la gestión de roles específica
+                para cambios de permisos.
+              </span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex justify-end gap-3 mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+      <p-button label="Cancelar" severity="secondary" (click)="onCancel()" [disabled]="isLoading()">
+      </p-button>
+
+      <p-button
+        [label]="submitButtonText()"
+        (click)="onSave()"
+        [loading]="isLoading()"
+        [disabled]="isLoading() || userForm.invalid"
+        [icon]="isEditMode() ? 'pi pi-check' : 'pi pi-plus'"
+      >
+      </p-button>
+    </div>
+  </form>
+</div>

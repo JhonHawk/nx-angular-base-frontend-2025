@@ -1,0 +1,104 @@
+@reference "tailwindcss";
+
+/*  Unauthenticated Layout Component with Comprehensive Dark Mode Support */
+.unauthenticated-layout {
+  @apply flex flex-col min-h-screen relative;
+  background: var(--surface-ground);
+  color: var(--text-color);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/*  Dark mode variant */
+.unauthenticated-layout--dark {
+  background: var(--surface-900);
+  color: var(--surface-0);
+}
+
+.unauthenticated-layout .main-content {
+  @apply flex-1 flex items-center justify-center relative z-10;
+}
+
+/*  Ensure content is always visible above any background effects */
+.unauthenticated-layout .main-content > * {
+  @apply relative z-20;
+}
+
+/*  Global dark mode adjustments for the unauthenticated layout */
+.orca-app-dark .unauthenticated-layout {
+  /*  Ensure particle backgrounds blend well in dark mode */
+  background: radial-gradient(
+      ellipse at center,
+      var(--surface-900) 0%,
+      rgba(15, 15, 15, 0.95) 100%
+  );
+}
+
+/*  Enhanced contrast for authentication forms in dark mode */
+/*  Provide subtle backdrop for forms in dark mode */
+.orca-app-dark .unauthenticated-layout .main-content::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(95vw, 1200px);
+  height: min(90vh, 800px);
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--surface-700);
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+/*  Only show backdrop when there's content */
+.orca-app-dark .unauthenticated-layout .main-content:has(> *)::before {
+  opacity: 1;
+}
+
+/*  High contrast mode support */
+@media (prefers-contrast: high) {
+  .unauthenticated-layout {
+    @apply border border-solid;
+    border-color: var(--surface-border);
+  }
+
+  .unauthenticated-layout--dark {
+    border-color: var(--surface-600);
+  }
+
+  .orca-app-dark .unauthenticated-layout .main-content::before {
+    @apply border-2;
+    border-color: var(--surface-500);
+  }
+}
+
+/*  Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .unauthenticated-layout,
+  .unauthenticated-layout .main-content::before {
+    transition: none;
+  }
+}
+
+/*  Integration with particle background components */
+/*  When used with particles background */
+.unauthenticated-layout:has(orca-particles-background) {
+  @apply overflow-hidden; /* Ensure particles don't overflow the layout*/
+}
+
+/*  Ensure particles don't interfere with form interactions */
+.unauthenticated-layout orca-particles-background {
+  @apply absolute top-0 left-0 w-full h-full z-0;
+  pointer-events: none;
+}
+
+.unauthenticated-layout orca-particles-background canvas {
+  pointer-events: none;
+}
+
+/*  Allow form content to be interactive */
+.unauthenticated-layout .main-content > :not(orca-particles-background) {
+  @apply relative z-10;
+  pointer-events: auto;
+}

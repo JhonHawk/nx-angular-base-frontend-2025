@@ -1,0 +1,130 @@
+<!-- Delete Client Confirmation -->
+<div class="p-6">
+  <!-- Warning Header -->
+  <div class="flex items-center gap-3 mb-6">
+    <i class="pi pi-exclamation-triangle text-3xl text-orange-500"></i>
+    <div>
+      <h3 class="text-xl font-semibold text-zinc-900 dark:text-white">Confirmar eliminación</h3>
+      <p class="text-zinc-600 dark:text-zinc-400 mt-1">Esta acción no se puede deshacer</p>
+    </div>
+  </div>
+
+  <!-- Client Information -->
+  <div class="bg-zinc-50 dark:bg-zinc-800 rounded-lg p-4 mb-6">
+    <div class="space-y-3">
+      <div class="flex justify-between items-start">
+        <span class="text-sm font-medium text-zinc-700 dark:text-zinc-300">Cliente:</span>
+        <div class="text-right">
+          <p class="font-semibold text-zinc-900 dark:text-white">{{ clientDisplayName }}</p>
+          <p class="text-sm text-zinc-600 dark:text-zinc-400">{{ client.contactEmail }}</p>
+          <p class="text-xs text-zinc-500 dark:text-zinc-500">{{ client.domainUrl }}</p>
+        </div>
+      </div>
+
+      <div class="flex justify-between items-start">
+        <span class="text-sm font-medium text-zinc-700 dark:text-zinc-300">Descripción:</span>
+        <div class="text-right max-w-xs">
+          <p class="text-sm text-zinc-900 dark:text-white text-right">
+            {{ client.description }}
+          </p>
+        </div>
+      </div>
+
+      <div class="flex justify-between items-center">
+        <span class="text-sm font-medium text-zinc-700 dark:text-zinc-300">Estado:</span>
+        <span
+          [class]="
+            hasActiveStatus
+              ? 'text-green-600 bg-green-100 dark:bg-green-900 dark:text-green-400'
+              : 'text-red-600 bg-red-100 dark:bg-red-900 dark:text-red-400'
+          "
+          class="px-2 py-1 text-xs font-medium rounded-full"
+        >
+          {{ statusText }}
+        </span>
+      </div>
+
+      <div class="flex justify-between items-center">
+        <span class="text-sm font-medium text-zinc-700 dark:text-zinc-300">Fecha de creación:</span>
+        <span class="text-sm text-zinc-600 dark:text-zinc-400">
+          {{ createdDateText }}
+        </span>
+      </div>
+
+      <div class="flex justify-between items-center">
+        <span class="text-sm font-medium text-zinc-700 dark:text-zinc-300">Usuarios:</span>
+        <span class="text-sm text-zinc-600 dark:text-zinc-400">
+          {{ usersCountText }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Warning Messages -->
+  <div
+    class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 mb-6"
+  >
+    <div class="flex gap-3">
+      <i class="pi pi-exclamation-circle text-red-500 mt-0.5"></i>
+      <div class="space-y-2">
+        <p class="text-sm font-medium text-red-800 dark:text-red-200">
+          ⚠️ Advertencias importantes:
+        </p>
+        <ul class="text-sm text-red-700 dark:text-red-300 space-y-1 pl-4 list-disc">
+          <li>El cliente será marcado como inactivo permanentemente</li>
+          <li>Se perderán todas las configuraciones específicas del cliente</li>
+          @if (client.usersCount && client.usersCount > 0) {
+            <li>Los {{ client.usersCount }} usuarios asociados perderán acceso al sistema</li>
+          }
+          <li>Los datos históricos se mantendrán pero no serán accesibles</li>
+          <li>Esta acción no se puede deshacer</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Additional Warning for Active Clients -->
+  @if (hasActiveStatus) {
+    <div
+      class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4 mb-6"
+    >
+      <div class="flex gap-3">
+        <i class="pi pi-exclamation-triangle text-yellow-600 mt-0.5"></i>
+        <div>
+          <p class="text-sm font-medium text-yellow-800 dark:text-yellow-200 mb-1">
+            Cliente activo
+          </p>
+          <p class="text-sm text-yellow-700 dark:text-yellow-300">
+            Este cliente está actualmente activo. Se recomienda suspenderlo primero antes de
+            eliminarlo para evitar interrupciones de servicio.
+          </p>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Confirmation Text -->
+  <div class="mb-6">
+    <p class="text-zinc-700 dark:text-zinc-300">
+      ¿Estás seguro de que deseas eliminar permanentemente el cliente
+      <strong class="font-semibold text-zinc-900 dark:text-white">{{ clientDisplayName }}</strong
+      >?
+    </p>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="flex justify-end gap-3 pt-4 border-t border-zinc-200 dark:border-zinc-700">
+    <p-button label="Cancelar" severity="secondary" (click)="onCancel()" [disabled]="isLoading()">
+    </p-button>
+
+    <p-button
+      label="Sí, eliminar cliente"
+      severity="danger"
+      (click)="onConfirmDelete()"
+      [loading]="isLoading()"
+      [disabled]="isLoading()"
+      icon="pi pi-trash"
+    >
+    </p-button>
+  </div>
+</div>

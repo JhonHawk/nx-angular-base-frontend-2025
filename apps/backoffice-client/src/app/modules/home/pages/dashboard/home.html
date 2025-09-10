@@ -1,0 +1,132 @@
+<!-- Page Header -->
+<orca-page-header
+  title="Panel de Administración"
+  description="Dashboard principal con métricas y estadísticas del sistema"
+>
+</orca-page-header>
+
+<!-- Content Area -->
+<div class="p-8 w-full animate-fade-in-up">
+  <!-- Charts Grid - 3 columns layout -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12 animate-stagger-children">
+    <!-- Row 1 -->
+    <div class="animate-chart-item" style="animation-delay: 0.1s">
+      <orca-vertical-bar-chart title="Rendimiento de Ventas" [chartData]="salesData">
+      </orca-vertical-bar-chart>
+    </div>
+
+    <div class="animate-chart-item" style="animation-delay: 0.2s">
+      <orca-line-chart title="Crecimiento de Usuarios" [chartData]="userGrowthChartData">
+      </orca-line-chart>
+    </div>
+
+    <div class="animate-chart-item" style="animation-delay: 0.3s">
+      <orca-doughnut-chart title="Uso por Dispositivos" [chartData]="deviceData">
+      </orca-doughnut-chart>
+    </div>
+
+    <!-- Row 2 -->
+    <div class="animate-chart-item" style="animation-delay: 0.4s">
+      <orca-pie-chart title="Participación de Mercado" [chartData]="marketData"> </orca-pie-chart>
+    </div>
+
+    <div class="animate-chart-item" style="animation-delay: 0.5s">
+      <orca-radar-chart title="Métricas de Rendimiento" [chartData]="performanceData">
+      </orca-radar-chart>
+    </div>
+
+    <div class="animate-chart-item" style="animation-delay: 0.6s">
+      <orca-horizontal-bar-chart title="Ingresos Mensuales" [chartData]="revenueData">
+      </orca-horizontal-bar-chart>
+    </div>
+
+    <!-- Row 3 -->
+    <div class="animate-chart-item" style="animation-delay: 0.7s">
+      <orca-doughnut-chart title="Satisfacción del Cliente" [chartData]="satisfactionData">
+      </orca-doughnut-chart>
+    </div>
+
+    <div class="animate-chart-item" style="animation-delay: 0.8s">
+      <orca-line-chart title="Fuentes de Tráfico" [chartData]="trafficData"> </orca-line-chart>
+    </div>
+
+    <div class="animate-chart-item" style="animation-delay: 0.9s">
+      <orca-radar-chart title="Productividad del Equipo" [chartData]="productivityData">
+      </orca-radar-chart>
+    </div>
+  </div>
+
+  <!-- Quick Actions Section -->
+  <div class="mb-12">
+    <h2 class="text-2xl font-semibold text-zinc-900 dark:text-white mb-6">Acciones Rápidas</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <button
+        class="bg-white dark:bg-zinc-800 border-2 border-zinc-200 dark:border-zinc-700 rounded-2xl p-6 flex flex-col items-center gap-4 cursor-pointer transition-all duration-300 hover:border-blue-500 hover:-translate-y-1 hover:shadow-lg group"
+        (click)="navigateToClients()"
+      >
+        <i
+          class="pi pi-building text-3xl! text-blue-500 group-hover:scale-110 transition-transform duration-300"
+        ></i>
+        <span class="font-medium text-center text-zinc-900 dark:text-white"
+          >Gestionar Clientes</span
+        >
+      </button>
+
+      <button
+        class="bg-white dark:bg-zinc-800 border-2 border-zinc-200 dark:border-zinc-700 rounded-2xl p-6 flex flex-col items-center gap-4 cursor-pointer transition-all duration-300 hover:border-green-500 hover:-translate-y-1 hover:shadow-lg group"
+        (click)="navigateToUsers()"
+      >
+        <i
+          class="pi pi-users text-3xl! text-green-500 group-hover:scale-110 transition-transform duration-300"
+        ></i>
+        <span class="font-medium text-center text-zinc-900 dark:text-white"
+          >Administrar Usuarios</span
+        >
+      </button>
+
+      <button
+        class="bg-white dark:bg-zinc-800 border-2 border-zinc-200 dark:border-zinc-700 rounded-2xl p-6 flex flex-col items-center gap-4 cursor-pointer transition-all duration-300 hover:border-purple-500 hover:-translate-y-1 hover:shadow-lg group"
+        (click)="navigateToReports()"
+      >
+        <i
+          class="pi pi-chart-bar text-3xl! text-purple-500 group-hover:scale-110 transition-transform duration-300"
+        ></i>
+        <span class="font-medium text-center text-zinc-900 dark:text-white">Ver Reportes</span>
+      </button>
+
+      <button
+        class="bg-white dark:bg-zinc-800 border-2 border-zinc-200 dark:border-zinc-700 rounded-2xl p-6 flex flex-col items-center gap-4 cursor-pointer transition-all duration-300 hover:border-orange-500 hover:-translate-y-1 hover:shadow-lg group"
+        (click)="navigateToSettings()"
+      >
+        <i
+          class="pi pi-cog text-3xl! text-orange-500 group-hover:scale-110 transition-transform duration-300"
+        ></i>
+        <span class="font-medium text-center text-zinc-900 dark:text-white">Configuración</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Recent Activity Section -->
+  <div>
+    <h2 class="text-2xl font-semibold text-zinc-900 dark:text-white mb-6">Actividad Reciente</h2>
+    <div
+      class="bg-white dark:bg-zinc-800 rounded-2xl p-6 shadow-lg border border-zinc-200 dark:border-zinc-700"
+    >
+      @for (activity of recentActivities(); track activity.id) {
+        <div
+          class="flex items-center gap-4 py-4 border-b border-zinc-100 dark:border-zinc-700 last:border-b-0"
+        >
+          <div
+            class="w-12 h-12 rounded-xl bg-zinc-50 dark:bg-zinc-700 flex items-center justify-center flex-shrink-0"
+          >
+            <i class="pi {{ activity.icon }} text-blue-500 text-lg"></i>
+          </div>
+          <div class="flex-1">
+            <p class="text-zinc-900 dark:text-white font-medium mb-1">{{ activity.description }}</p>
+            <span class="text-sm text-zinc-600 dark:text-zinc-400">{{ activity.timestamp }}</span>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>

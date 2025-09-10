@@ -1,0 +1,10 @@
+@reference "tailwindcss";
+
+/* Sidebar icon styling */
+.sidebar-icon {
+  font-size: 18px;
+  color: currentColor;
+  transform: translateY(-1px); /* Icon alignment - move icons up slightly */
+}
+
+
