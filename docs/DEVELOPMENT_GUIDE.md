@@ -164,10 +164,10 @@ import { MenuItem } from 'customer-features'; // DON'T DO THIS
 #### Step 1: Generate Component
 ```bash
 # Shared components (cross-app usage)
-nx generate @nx/angular:component --path=libs/customer-features/src/lib/shared/components/data-grid
+nx generate @nx/angular:component --path=libs/shared-features/src/lib/shared/components/data-grid
 
 # Module-specific components
-nx generate @nx/angular:component --path=libs/customer-features/src/lib/modules/users/components/user-profile
+nx generate @nx/angular:component --path=libs/shared-features/src/lib/modules/users/components/user-profile
 ```
 
 #### Step 2: Export in Main Barrel (ONLY)
@@ -457,7 +457,7 @@ nx generate @nx/angular:component --path=libs/customer-features/src/lib/shared/c
 
 ```bash
 # Business logic components for specific domains
-nx generate @nx/angular:component --path=libs/customer-features/src/lib/modules/users/components/user-profile
+nx generate @nx/angular:component --path=libs/shared-features/src/lib/modules/users/components/user-profile
 ```
 
 ### Modern Component Template

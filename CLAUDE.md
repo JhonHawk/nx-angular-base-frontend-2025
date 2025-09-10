@@ -4,10 +4,9 @@
 
 ```bash
 # Development & Build
-npm run start:backoffice    # Admin interface (port 4200)
-npm run start:customer      # Customer app (port 4201)
-npm run start:all          # Both apps in parallel
-npm run build:all          # Build both apps
+npm start                  # Main application (port 4200)
+npm run start:dev          # Development mode with lib watch
+npm run build              # Build main application
 npm run build:libs         # Build shared libraries only
 
 # Quality Assurance
@@ -20,27 +19,23 @@ npm run affected:build    # Build only affected projects
 npm run affected:test     # Test only affected projects
 
 # Component Generation
-nx generate @nx/angular:component --path=libs/customer-features/src/lib/shared/components/<name>
-nx generate @nx/angular:component --path=libs/customer-features/src/lib/modules/users/components/<name>
+nx generate @nx/angular:component --path=libs/shared-features/src/lib/shared/components/<name>
+nx generate @nx/angular:component --path=libs/shared-features/src/lib/modules/users/components/<name>
 
 # Testing
-nx test backoffice-client
-nx test customer-client
-nx test customer-features
+nx test app-client
+nx test shared-features
 ```
 
 ## Architecture Overview
 
-**Nx monorepo** with two distinct Angular applications and consolidated shared library:
+**Nx monorepo** with single Angular application and consolidated shared library:
 
-### Applications
+### Application
 
-- **backoffice-client**: Admin interface with VPN-protected APIs (storage: `'backoffice-user-data'`)
-- **customer-client**: Customer app with public APIs (storage: `'customer-user-data'`)
+- **app-client**: Main application with configurable API endpoints (storage: `'user-data'`)
 
-**Critical**: Separate authentication flows and API domains - do not share auth logic between apps.
-
-### Consolidated Library (`customer-features`)
+### Consolidated Library (`shared-features`)
 
 Single library containing all shared functionality:
 
@@ -55,13 +50,13 @@ Single library containing all shared functionality:
 
 ```typescript
 // Applications use external exports
-import { ButtonComponent, formatDate, UserType } from 'customer-features';
+import { ButtonComponent, formatDate, UserType } from 'shared-features';
 
 // Within library use internal exports (prevents circular dependencies)
 import { MenuItem, DarkModeService } from '../../../internal';
 
 // ❌ NEVER within library (causes circular dependency)
-import { MenuItem } from 'customer-features';
+import { MenuItem } from 'shared-features';
 ```
 
 ### ESLint Prevention
@@ -74,7 +69,7 @@ import { MenuItem } from 'customer-features';
       {
         "patterns": [
           {
-            "group": ["customer-features"],
+            "group": ["shared-features"],
             "message": "Use relative imports or './shared/internal' within library"
           }
         ]
@@ -95,7 +90,7 @@ import { MenuItem } from 'customer-features';
 ### 🚨 CRITICAL RULES (Non-negotiable)
 
 1. **NEW CONTROL FLOW ONLY**: Never use `*ngIf`, `*ngFor`, `*ngSwitch`. Always use `@if`, `@for`, `@switch`
-2. **BARREL FILES RESTRICTION**: Only allowed in `customer-features` library. Never create `index.ts` files in applications
+2. **BARREL FILES RESTRICTION**: Only allowed in `shared-features` library. Never create `index.ts` files in applications
 
 ## Implemented Features
 
@@ -107,7 +102,7 @@ this.toastService.showSuccess('Success', 'Operation completed');
 ```
 
 - **Global toast:** Single `<p-toast>` in `app.html` prevents duplicates with `translateX(100%)` animation
-- **ToastService:** Located in `apps/[app]/src/app/core/services/toast.service.ts`, uses PrimeNG with Aura theme
+- **ToastService:** Located in `apps/app-client/src/app/services/toast.service.ts`, uses PrimeNG with Aura theme
 
 ### HTTP Interceptor System
 
@@ -115,10 +110,10 @@ Functional interceptor with 70-80% memory reduction:
 
 ```typescript
 // Configuration in main.ts
-import { httpInterceptor, configureHttpInterceptor } from 'customer-features';
+import { httpInterceptor, configureHttpInterceptor } from 'shared-features';
 
 configureHttpInterceptor({
-  authStorageKey: 'backoffice-user-data', // or 'customer-user-data'
+  authStorageKey: 'user-data',
   defaultTimeout: 10000,
   enableLogging: true,
 });
@@ -140,7 +135,7 @@ backgroundColor = computed(() => this.isDarkMode() ? '#0f0f0f' : '#ffffff');
 ### Particle Background System
 
 ```typescript
-import { ParticlesBackgroundComponent } from 'customer-features';
+import { ParticlesBackgroundComponent } from 'shared-features';
 
 <app-particles-background
   [backgroundColor]="backgroundColor()"
@@ -185,21 +180,21 @@ import { ParticlesBackgroundComponent } from 'customer-features';
 ### Component Creation
 
 ```bash
-# Shared components (customer-features library)
-nx generate @nx/angular:component --path=libs/customer-features/src/lib/shared/components/<name>
+# Shared components (shared-features library)
+nx generate @nx/angular:component --path=libs/shared-features/src/lib/shared/components/<name>
 
-# Module components (customer-features library)
-nx generate @nx/angular:component --path=libs/customer-features/src/lib/modules/users/components/<name>
+# Module components (shared-features library)
+nx generate @nx/angular:component --path=libs/shared-features/src/lib/modules/users/components/<name>
 
 # Application components
-mkdir -p apps/backoffice-client/src/app/modules/users/pages/users-list
+mkdir -p apps/app-client/src/app/modules/users/pages/users-list
 ```
 
 ### Adding to Library
 
 1. **Generate component** with nx generate
 2. **Export in main index.ts ONLY**: `export { ComponentName } from './lib/path/component';`
-3. **Use in apps**: `import { ComponentName } from 'customer-features';`
+3. **Use in apps**: `import { ComponentName } from 'shared-features';`
 
 ### Module Structure Convention
 
@@ -247,7 +242,7 @@ Edit → Error → Read → Edit (wastes ~2000+ tokens per cycle)
 ### Build Protocol
 
 - **Minimize builds**: Run ONCE after all edits
-- **Build order**: customer-features → customer-client → backoffice-client
+- **Build order**: shared-features → app-client
 - **Use affected**: `nx affected:build` when possible
 
 ## Code Conventions
@@ -341,7 +336,7 @@ Edit → Error → Read → Edit (wastes ~2000+ tokens per cycle)
 
 1. **Test Dependencies**: Router needs `provideRouter([])`, HttpClient needs `provideHttpClient()`
 2. **Build Order**: `nx build customer-features` → applications
-3. **Import Errors**: Use `from 'customer-features'` for shared imports
+3. **Import Errors**: Use `from 'shared-features'` for shared imports
 4. **Component Structure**: Each component needs own directory with `.ts/.html/.css/.spec.ts`
 
 ## Specialized AI Agents

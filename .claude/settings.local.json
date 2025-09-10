@@ -54,6 +54,7 @@
     "deny": [],
     "ask": [],
     "additionalDirectories": [
+      "X:\\tricell\\nx-angular-base-frontend-2025"
     ]
   },
   "enableAllProjectMcpServers": true,

@@ -19,18 +19,17 @@ This project is an Nx-powered monorepo template containing multiple Angular appl
 
 ## Architecture
 
-The monorepo follows a modular architecture with two main applications and multiple shared libraries:
+The monorepo follows a modular architecture with one main application and shared libraries:
 
-### Applications
+### Application
 
-- **backoffice-client**: Administrative interface for system management
-- **customer-client**: Customer-facing application
+- **app-client**: Main application for the system
 
 ### Consolidated Library Architecture
 
 The `libs/` directory now contains a **single consolidated library** that eliminates code duplication and simplifies imports:
 
-- **customer-features**: Centralized library containing all shared functionality organized by domain:
+- **shared-features**: Centralized library containing all shared functionality organized by domain:
   - `modules/` - Business logic modules (users, organization-management, profile-management)
   - `shared/components/` - Reusable UI components, layouts, and design system elements
   - `shared/utils/` - Pure functions, utilities, HTTP interceptors, and helper services
@@ -41,34 +40,34 @@ The `libs/` directory now contains a **single consolidated library** that elimin
 
 **Benefits of Consolidation:**
 
-- **Single Import Source**: All shared code imported from one location (`customer-features`)
+- **Single Import Source**: All shared code imported from one location (`shared-features`)
 - **Circular Dependency Prevention**: Stratified export architecture prevents build issues
-- **Consistent Structure**: Same `modules/` + `shared/` pattern as applications
-- **Reduced Complexity**: Eliminated 4 separate libraries (ui-shared, utils-core, shared-types, shared-constants)
+- **Consistent Structure**: Same `modules/` + `shared/` pattern as application
+- **Reduced Complexity**: Consolidated shared functionality in single library
 - **Easier Maintenance**: Single library to manage instead of multiple dependencies
 
 #### Circular Dependency Prevention
 
 The library uses **stratified exports** to prevent circular dependencies:
 
-- **External API** (`libs/customer-features/src/index.ts`): For application consumption
-- **Internal API** (`libs/customer-features/src/lib/shared/internal.ts`): For library components only
+- **External API** (`libs/shared-features/src/index.ts`): For application consumption
+- **Internal API** (`libs/shared-features/src/lib/shared/internal.ts`): For library components only
 - **ESLint Enforcement**: Automatic prevention of circular imports during development
 
 ```typescript
-// ✅ Applications
-import { SidebarComponent } from 'customer-features';
+// ✅ Application
+import { SidebarComponent } from 'shared-features';
 
 // ✅ Library components
 import { MenuItem } from '../../internal';
 
 // ❌ Never (circular dependency)
-import { MenuItem } from 'customer-features'; // Within library
+import { MenuItem } from 'shared-features'; // Within library
 ```
 
 ### Application-Specific Modules
 
-Each application has its own `modules/` directory with **independent implementations** following a standardized structure:
+The application has its own `modules/` directory following a standardized structure:
 
 #### Module Structure Convention
 
@@ -134,22 +133,13 @@ const menuItems = [
 ];
 ```
 
-#### Backoffice Client (`apps/backoffice-client/src/app/modules/`)
+#### App Client (`apps/app-client/src/app/modules/`)
 
-- **auth**: Admin authentication (VPN-protected API)
-- **home**: Dashboard with admin-focused metrics and quick actions
+- **auth**: User authentication
+- **home**: Dashboard with application metrics and quick actions
 - **users**: User management (list/create/edit pages + reusable components)
-- **clients**: Customer client CRUD operations
-- **management**: Role management, user licenses, org diagram design
-
-#### Customer Client (`apps/customer-client/src/app/modules/`)
-
-- **auth**: Customer authentication (public API)
-- **home**: Dashboard with customer-focused team metrics
-- **team**: Team management (list/create pages + reusable components)
-- **organization-management**: Customer org management tools
-
-> **Important**: Although UI may look similar, each app consumes **different APIs** with **different domains** and **different authentication flows**.
+- **organization**: Organization management tools
+- **profile**: User profile management
 
 ## Prerequisites
 
@@ -166,7 +156,7 @@ npm install
 
 ### 🌙 Dark Mode Support
 
-Both applications include a comprehensive dark mode implementation with **zinc color palette**:
+The application includes a comprehensive dark mode implementation with **zinc color palette**:
 
 - **Toggle Button**: Dark mode toggle in top navigation with sun/moon icons
 - **Signal-Based Reactivity**: Angular v20+ signals for reactive theme changes
@@ -178,7 +168,7 @@ Both applications include a comprehensive dark mode implementation with **zinc c
 
 ### 🔔 Global Toast Notifications
 
-- **Unified System**: Single `<p-toast>` per app prevents duplicates with consistent `translateX(100%)` animation
+- **Unified System**: Single `<p-toast>` in app prevents duplicates with consistent `translateX(100%)` animation
 - **Toast Service**: Injectable service with `showSuccess()`, `showError()`, `showInfo()`, `showWarning()` methods using PrimeNG Aura theme
 
 ### 🌐 HTTP Interceptor System

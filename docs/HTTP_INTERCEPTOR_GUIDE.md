@@ -386,14 +386,9 @@ function extractHeaders(headers: any): Record<string, string | null> {
 
 ### Current Bundle Sizes
 
-**Backoffice Client:**
+**App Client:**
 - Initial bundle: 1.15 MB (raw) / 195.03 kB (gzipped)
 - Main bundle: 142.19 kB
-- HTTP Interceptor: 24.0 kB
-
-**Customer Client:**
-- Initial bundle: 1.15 MB (raw) / 194.95 kB (gzipped)  
-- Main bundle: 141.33 kB
 - HTTP Interceptor: 24.0 kB
 
 ## Developer Usage Guide

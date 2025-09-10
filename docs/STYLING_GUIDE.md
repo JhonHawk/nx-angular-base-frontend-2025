@@ -113,9 +113,8 @@ export class SidebarComponent {
 - Warm build: 1.31 seconds (with Nx caching)
 - Angular compile: 1.09 seconds
 
-**Application Builds:**
-- Customer-client: 3.95s (fresh) / 1.38s (cached)  
-- Backoffice-client: 4.02s (fresh) / 1.36s (cached)
+**Application Build:**
+- App-client: 3.95s (fresh) / 1.38s (cached)
 - Full build: 1.38s (parallel with caching)
 
 ### Bundle Size Improvements
@@ -125,7 +124,7 @@ export class SidebarComponent {
 - After migration: 36KB CSS bundle  
 - User download: 7.06KB gzipped
 
-**Bundle Composition (Customer-Client):**
+**Bundle Composition (App-Client):**
 ```
 Initial Chunks:
 - chunk-DMSGFTUQ.js: 258.11 KB (43.47 KB gzipped)
@@ -263,7 +262,7 @@ The `@apply` directive brings Tailwind's utility-first approach to custom CSS:
 ### Custom AppPreset Theme
 
 ```typescript
-// libs/customer-features/src/lib/shared/styles/apppreset.ts
+// libs/shared-features/src/lib/shared/styles/apppreset.ts
 const AppPreset = definePreset(Aura, {
   semantic: {
     colorScheme: {
