@@ -1,14 +1,14 @@
-# Comprehensive Styling & Migration Report - ORCA SNS Frontend Web
+# Comprehensive Styling & Migration Report - Angular Base Frontend Template
 
 ## Executive Summary
 
-This report consolidates the complete styling architecture transformation of the ORCA SNS Frontend Web application, covering dark mode implementation, SCSS to CSS migration, Tailwind CSS v4 integration, and performance optimizations achieved.
+This report consolidates the complete styling architecture transformation of the Angular Base Frontend Template, covering dark mode implementation, SCSS to CSS migration, Tailwind CSS v4 integration, and performance optimizations achieved.
 
 **Key Accomplishments:**
 - ✅ **Complete dark mode system** with signal-based reactivity
 - ✅ **SCSS to CSS migration** with 70% bundle size reduction  
 - ✅ **Tailwind CSS v4 adoption** as primary styling framework
-- ✅ **PrimeNG integration** with custom OrcaPreset theme
+- ✅ **PrimeNG integration** with custom AppPreset theme
 - ✅ **97/97 tests passing** throughout all migrations
 - ✅ **Color scheme modernization** from gray to zinc palette
 
@@ -32,7 +32,7 @@ Styles Architecture:
 │   ├── Strategic custom CSS (fallback for complex patterns)
 │   └── PrimeNG component overrides
 └── Theme Configuration
-    ├── OrcaPreset (PrimeNG theme integration)
+    ├── AppPreset (PrimeNG theme integration)
     └── CSS custom properties system
 ```
 
@@ -56,7 +56,7 @@ The core service provides signal-based reactive theming:
 @Injectable({ providedIn: 'root' })
 export class DarkModeService {
   private readonly STORAGE_KEY = 'theme-preference';
-  private readonly DARK_CLASS = 'orca-app-dark';
+  private readonly DARK_CLASS = 'app-dark';
   
   isDarkMode = signal<boolean>(false);
   
@@ -73,7 +73,7 @@ export class DarkModeService {
 - Automatic OS preference detection on first visit
 - Manual override with localStorage persistence
 - MediaQuery listener for system theme changes
-- Custom `.orca-app-dark` selector (not PrimeNG's `.p-dark`)
+- Custom `.app-dark` selector (not PrimeNG's `.p-dark`)
 
 **Color Scheme Migration:**
 All styling has been updated from gray to zinc palette:
@@ -154,7 +154,7 @@ Initial Chunks:
 /* Tailwind CSS v4 configuration */
 @use "tailwindcss";
 @plugin "tailwindcss-primeui";
-@custom-variant dark (&:where(.orca-app-dark, .orca-app-dark *));
+@custom-variant dark (&:where(.app-dark, .app-dark *));
 ```
 
 ### Custom Directives: @apply and @reference
@@ -260,11 +260,11 @@ The `@apply` directive brings Tailwind's utility-first approach to custom CSS:
 
 ## PrimeNG Integration
 
-### Custom OrcaPreset Theme
+### Custom AppPreset Theme
 
 ```typescript
-// libs/customer-features/src/lib/shared/styles/orcapreset.ts
-const OrcaPreset = definePreset(Aura, {
+// libs/customer-features/src/lib/shared/styles/apppreset.ts
+const AppPreset = definePreset(Aura, {
   semantic: {
     colorScheme: {
       light: {

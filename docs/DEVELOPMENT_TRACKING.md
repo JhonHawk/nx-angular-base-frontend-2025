@@ -2,7 +2,7 @@
 
 ## Project Module Implementation Task Board
 
-This document serves as a comprehensive task tracking board for implementing all modules across both applications in the Orca SNS Frontend Web project.
+This document serves as a comprehensive task tracking board for implementing all modules across both applications in the Angular Base Frontend Template project.
 
 ---
 
@@ -13,7 +13,7 @@ Backoffice
     - Listado de cuentas (vista)
     - Crear cuenta (modal)
     - Asignación de cuentas (modal)
-  - Orca Team
+  - Admin Team
     - Listado de usuarios (vista)
     - Crear usuario (modal)
   - Administración
@@ -115,7 +115,7 @@ interface MenuItem {
 ### Applications
 - **backoffice-client**: Administrative interface (port 4200)
 - **customer-client**: Customer-facing app (port 4201)
-- **customer-features**: Shared library with consolidated architecture
+- **shared-features**: Shared library with consolidated architecture
 
 ---
 
@@ -136,9 +136,9 @@ interface MenuItem {
         command: () => showPlaceholderToast('Gestión de cuentas')
       },
       { 
-        name: 'Orca Team',
+        name: 'Admin Team',
         icon: 'pi pi-users',
-        command: () => showPlaceholderToast('Orca Team')
+        command: () => showPlaceholderToast('Admin Team')
       },
       { 
         name: 'Administración',
@@ -227,7 +227,7 @@ interface MenuItem {
 
 #### MenuItem Interface Updates ✅ COMPLETED
 - [x] **Update MenuItem Interface**
-  - [x] Edit: `libs/customer-features/src/lib/shared/services/menu.service.ts`
+  - [x] Edit: `libs/shared-features/src/lib/shared/services/menu.service.ts`
   - [x] **✅ IMPLEMENTED**: Clean interface with tooltip auto-generation:
     ```typescript
     export interface MenuItem {
@@ -252,14 +252,14 @@ interface MenuItem {
 ### Step 2: Vista 404 Component ✅ COMPLETED
 
 - [x] **Create 404 Component** ✅ COMPLETED
-  - [x] Generate component: `nx generate @nx/angular:component --path=libs/customer-features/src/lib/shared/components/not-found`
+  - [x] Generate component: `nx generate @nx/angular:component --path=libs/shared-features/src/lib/shared/components/not-found`
   - [x] Create responsive 404 design with Tailwind CSS
   - [x] Add "Go Back" button functionality
   - [x] Include dark mode support
   - [x] Add particles background for visual appeal
 
 - [x] **Export Configuration** ✅ COMPLETED
-  - [x] Add export to `libs/customer-features/src/index.ts`
+  - [x] Add export to `libs/shared-features/src/index.ts`
   - [x] Export: `export { NotFoundComponent } from './lib/shared/components/not-found/not-found.component';`
 
 - [x] **Route Integration** ✅ COMPLETED
@@ -297,7 +297,7 @@ interface MenuItem {
 - [x] **Type Safety**: All API models mapped to frontend Client interface with proper data transformations
 - [x] **Error Handling**: Comprehensive error handling and loading states
 - [x] **Pagination Support**: Full pagination implementation with signals
-- [x] **Library Exports**: Added API types to `customer-features` library exports
+- [x] **Library Exports**: Added API types to `shared-features` library exports
 - [x] **Type Co-location**: Reorganized types to be co-located with functionality rather than generic files
 
 #### API Endpoints Structure:
@@ -441,7 +441,7 @@ ClientResponseDTO → Client interface
 
 ---
 
-### Module: Orca Team (Equipo)
+### Module: Admin Team (Equipo)
 
 #### Pages Structure
 - [ ] **Team List** (`/team`)
@@ -486,16 +486,16 @@ ClientResponseDTO → Client interface
   - [ ] Configure internal staff access controls
 
 #### Progressive Menu Integration
-- [ ] **Enable Orca Team Navigation**
+- [ ] **Enable Admin Team Navigation**
   - [ ] Edit: `apps/backoffice-client/src/app/shared/constants/menu-items.ts`
   - [ ] Update menu item when module is complete:
     ```typescript
     { 
-      name: 'Orca Team',
+      name: 'Admin Team',
       icon: 'team',
       routerLink: '/team', // ✅ Add routerLink when module implemented
       // isPlaceholder: true, // ✅ Remove placeholder flag
-      // tooltip: 'Próximamente - Equipo Orca' // ✅ Remove placeholder tooltip
+      // tooltip: 'Próximamente - Equipo Admin' // ✅ Remove placeholder tooltip
     }
     ```
   - [ ] Test navigation to team module
@@ -572,49 +572,49 @@ ClientResponseDTO → Client interface
 
 #### Pages Structure
 - [ ] **Información General** (`/organization/info`)
-  - [ ] Generate info-general page: `libs/customer-features/src/lib/modules/organization/pages/info-general/`
+  - [ ] Generate info-general page: `libs/shared-features/src/lib/modules/organization/pages/info-general/`
   - [ ] Company profile management form
   - [ ] Logo upload and branding settings
   - [ ] Contact information and legal details
 
 - [ ] **Configuración** (`/organization/settings`)
-  - [ ] Generate org-settings page: `libs/customer-features/src/lib/modules/organization/pages/org-settings/`
+  - [ ] Generate org-settings page: `libs/shared-features/src/lib/modules/organization/pages/org-settings/`
   - [ ] Business operation parameters
   - [ ] Working hours and holiday schedules
   - [ ] Notification preferences
 
 - [ ] **Ubicaciones** (`/organization/locations`)
-  - [ ] Generate locations-list page: `libs/customer-features/src/lib/modules/organization/pages/locations-list/`
+  - [ ] Generate locations-list page: `libs/shared-features/src/lib/modules/organization/pages/locations-list/`
   - [ ] Office and branch management
   - [ ] Address and contact information
   - [ ] Location-specific configurations
 
 #### Components
 - [ ] **Location Card Component**
-  - [ ] Generate: `libs/customer-features/src/lib/modules/organization/components/location-card/`
+  - [ ] Generate: `libs/shared-features/src/lib/modules/organization/components/location-card/`
   - [ ] Display location information and quick actions
   - [ ] Status indicators for active locations
 
 - [ ] **Organization Info Form**
-  - [ ] Generate: `libs/customer-features/src/lib/modules/organization/components/organization-info-form/`
+  - [ ] Generate: `libs/shared-features/src/lib/modules/organization/components/organization-info-form/`
   - [ ] Reusable form for organization data
   - [ ] Validation and data formatting
 
 #### Services
 - [ ] **Organization Service**
-  - [ ] Generate: `libs/customer-features/src/lib/modules/organization/services/organization.service.ts`
+  - [ ] Generate: `libs/shared-features/src/lib/modules/organization/services/organization.service.ts`
   - [ ] Organization profile management
   - [ ] Location CRUD operations
   - [ ] Configuration settings management
 
 #### Routes
 - [ ] **Organization Routes**
-  - [ ] Create: `libs/customer-features/src/lib/modules/organization/organization.routes.ts`
+  - [ ] Create: `libs/shared-features/src/lib/modules/organization/organization.routes.ts`
   - [ ] Configure organization module routing
 
 #### Library Export Updates
 - [ ] **Export Organization Components**
-  - [ ] Add exports to `libs/customer-features/src/index.ts`:
+  - [ ] Add exports to `libs/shared-features/src/index.ts`:
     ```typescript
     // ===== ORGANIZATION MODULE =====
     export { InfoGeneralComponent } from './lib/modules/organization/pages/info-general/info-general.component';
@@ -669,74 +669,74 @@ ClientResponseDTO → Client interface
 
 #### Pages Structure
 - [ ] **Empleados** (`/team/employees`)
-  - [ ] Generate employees-list page: `libs/customer-features/src/lib/modules/team/pages/employees-list/`
+  - [ ] Generate employees-list page: `libs/shared-features/src/lib/modules/team/pages/employees-list/`
   - [ ] Employee directory with search and filtering
   - [ ] Employee profile management
   - [ ] Contact information and job details
 
 - [ ] **Employee Details** (`/team/employees/:id`)
-  - [ ] Generate employee-details page: `libs/customer-features/src/lib/modules/team/pages/employee-details/`
+  - [ ] Generate employee-details page: `libs/shared-features/src/lib/modules/team/pages/employee-details/`
   - [ ] Comprehensive employee profile view
   - [ ] Work history and performance data
   - [ ] Document management
 
 - [ ] **Roles y Permisos** (`/team/roles`)
-  - [ ] Generate roles-list page: `libs/customer-features/src/lib/modules/team/pages/roles-list/`
+  - [ ] Generate roles-list page: `libs/shared-features/src/lib/modules/team/pages/roles-list/`
   - [ ] Role definition and management
   - [ ] Permission matrix configuration
   - [ ] Role assignment interface
 
 - [ ] **Departamentos** (`/team/departments`)
-  - [ ] Generate departments-list page: `libs/customer-features/src/lib/modules/team/pages/departments-list/`
+  - [ ] Generate departments-list page: `libs/shared-features/src/lib/modules/team/pages/departments-list/`
   - [ ] Department structure management
   - [ ] Hierarchy visualization
   - [ ] Department head assignments
 
 #### Components
 - [ ] **Employee Card**
-  - [ ] Generate: `libs/customer-features/src/lib/modules/team/components/employee-card/`
+  - [ ] Generate: `libs/shared-features/src/lib/modules/team/components/employee-card/`
   - [ ] Employee summary display
   - [ ] Quick contact and profile actions
 
 - [ ] **Role Permission Matrix**
-  - [ ] Generate: `libs/customer-features/src/lib/modules/team/components/role-permission-matrix/`
+  - [ ] Generate: `libs/shared-features/src/lib/modules/team/components/role-permission-matrix/`
   - [ ] Interactive permission configuration
   - [ ] Visual role hierarchy
 
 - [ ] **Department Tree**
-  - [ ] Generate: `libs/customer-features/src/lib/modules/team/components/department-tree/`
+  - [ ] Generate: `libs/shared-features/src/lib/modules/team/components/department-tree/`
   - [ ] Hierarchical department visualization
   - [ ] Drag-and-drop organization
 
 #### Modal Components
 - [ ] **Employee Create/Edit Modal**
-  - [ ] Generate: `libs/customer-features/src/lib/modules/team/components/employee-modal/`
+  - [ ] Generate: `libs/shared-features/src/lib/modules/team/components/employee-modal/`
   - [ ] Employee creation and editing form
   - [ ] File upload for profile picture and documents
 
 - [ ] **Role Create/Edit Modal**
-  - [ ] Generate: `libs/customer-features/src/lib/modules/team/components/role-modal/`
+  - [ ] Generate: `libs/shared-features/src/lib/modules/team/components/role-modal/`
   - [ ] Role definition and permission assignment
 
 - [ ] **Department Create/Edit Modal**
-  - [ ] Generate: `libs/customer-features/src/lib/modules/team/components/department-modal/`
+  - [ ] Generate: `libs/shared-features/src/lib/modules/team/components/department-modal/`
   - [ ] Department creation and hierarchy management
 
 #### Services
 - [ ] **Team Management Service**
-  - [ ] Generate: `libs/customer-features/src/lib/modules/team/services/team-management.service.ts`
+  - [ ] Generate: `libs/shared-features/src/lib/modules/team/services/team-management.service.ts`
   - [ ] Employee CRUD operations
   - [ ] Role and permission management
   - [ ] Department structure operations
 
 #### Routes
 - [ ] **Team Management Routes**
-  - [ ] Create: `libs/customer-features/src/lib/modules/team/team-management.routes.ts`
+  - [ ] Create: `libs/shared-features/src/lib/modules/team/team-management.routes.ts`
   - [ ] Configure team module routing
 
 #### Library Export Updates
 - [ ] **Export Team Components**
-  - [ ] Add exports to `libs/customer-features/src/index.ts`:
+  - [ ] Add exports to `libs/shared-features/src/index.ts`:
     ```typescript
     // ===== TEAM MANAGEMENT MODULE =====
     export { EmployeesListComponent } from './lib/modules/team/pages/employees-list/employees-list.component';
@@ -791,54 +791,54 @@ ClientResponseDTO → Client interface
 
 #### Pages Structure
 - [ ] **Métricas Generales** (`/reports/metrics`)
-  - [ ] Generate metrics-dashboard page: `libs/customer-features/src/lib/modules/reports/pages/metrics-dashboard/`
+  - [ ] Generate metrics-dashboard page: `libs/shared-features/src/lib/modules/reports/pages/metrics-dashboard/`
   - [ ] Executive KPI dashboard
   - [ ] Performance trend analysis
   - [ ] Organizational health indicators
 
 - [ ] **Informes Personalizados** (`/reports/custom`)
-  - [ ] Generate custom-reports page: `libs/customer-features/src/lib/modules/reports/pages/custom-reports/`
+  - [ ] Generate custom-reports page: `libs/shared-features/src/lib/modules/reports/pages/custom-reports/`
   - [ ] Report builder interface
   - [ ] Dynamic filtering and segmentation
   - [ ] Custom visualization options
 
 - [ ] **Exportar Datos** (`/reports/export`)
-  - [ ] Generate data-export page: `libs/customer-features/src/lib/modules/reports/pages/data-export/`
+  - [ ] Generate data-export page: `libs/shared-features/src/lib/modules/reports/pages/data-export/`
   - [ ] Bulk data export tools
   - [ ] Format selection (Excel, CSV, PDF)
   - [ ] Scheduled export configuration
 
 #### Components
 - [ ] **KPI Widget**
-  - [ ] Generate: `libs/customer-features/src/lib/modules/reports/components/kpi-widget/`
+  - [ ] Generate: `libs/shared-features/src/lib/modules/reports/components/kpi-widget/`
   - [ ] Reusable metric display widget
   - [ ] Configurable thresholds and alerts
 
 - [ ] **Chart Visualization**
-  - [ ] Generate: `libs/customer-features/src/lib/modules/reports/components/chart-visualization/`
+  - [ ] Generate: `libs/shared-features/src/lib/modules/reports/components/chart-visualization/`
   - [ ] Dynamic chart components
   - [ ] Multiple chart type support
 
 - [ ] **Report Builder**
-  - [ ] Generate: `libs/customer-features/src/lib/modules/reports/components/report-builder/`
+  - [ ] Generate: `libs/shared-features/src/lib/modules/reports/components/report-builder/`
   - [ ] Visual report configuration interface
   - [ ] Drag-and-drop field selection
 
 #### Services
 - [ ] **Reports Service**
-  - [ ] Generate: `libs/customer-features/src/lib/modules/reports/services/reports.service.ts`
+  - [ ] Generate: `libs/shared-features/src/lib/modules/reports/services/reports.service.ts`
   - [ ] Data aggregation and analysis
   - [ ] Export functionality
   - [ ] Custom report configuration
 
 #### Routes
 - [ ] **Reports Routes**
-  - [ ] Create: `libs/customer-features/src/lib/modules/reports/reports.routes.ts`
+  - [ ] Create: `libs/shared-features/src/lib/modules/reports/reports.routes.ts`
   - [ ] Configure reports module routing
 
 #### Library Export Updates
 - [ ] **Export Reports Components**
-  - [ ] Add exports to `libs/customer-features/src/index.ts`:
+  - [ ] Add exports to `libs/shared-features/src/index.ts`:
     ```typescript
     // ===== REPORTS MODULE =====
     export { MetricsDashboardComponent } from './lib/modules/reports/pages/metrics-dashboard/metrics-dashboard.component';
@@ -936,17 +936,17 @@ ClientResponseDTO → Client interface
       { path: 'login', component: LoginComponent, canActivate: [unauthGuard] },
       { 
         path: 'organization', 
-        loadChildren: () => import('customer-features').then(m => m.organizationRoutes),
+        loadChildren: () => import('shared-features').then(m => m.organizationRoutes),
         canActivate: [authGuard]
       },
       { 
         path: 'team', 
-        loadChildren: () => import('customer-features').then(m => m.teamManagementRoutes),
+        loadChildren: () => import('shared-features').then(m => m.teamManagementRoutes),
         canActivate: [authGuard]
       },
       { 
         path: 'reports', 
-        loadChildren: () => import('customer-features').then(m => m.reportsRoutes),
+        loadChildren: () => import('shared-features').then(m => m.reportsRoutes),
         canActivate: [authGuard]
       },
       { path: '**', component: NotFoundComponent }
@@ -994,10 +994,10 @@ npm run test:all
 # Test specific projects
 nx test backoffice-client
 nx test customer-client
-nx test customer-features
+nx test shared-features
 
 # Run with coverage
-nx test customer-features --coverage
+nx test shared-features --coverage
 ```
 
 ---

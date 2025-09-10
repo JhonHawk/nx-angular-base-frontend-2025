@@ -14,7 +14,7 @@
 
 - La siguiente feature debe implementarse en el componente: libs/customer-features/src/lib/shared/components/layouts/top-menu/top-menu.component.ts
 - Se debe implementar un nuevo botón al lado izquierdo del botón de darkmode, llamado "Seleccionar organización".
-- Este botón deme ser similar al que se muestra a continuación y debe obtener sus elementos de .store de clients, pero se debe añadir un elemento extra que se llamará ORCA:
+- Este botón debe ser similar al que se muestra a continuación y debe obtener sus elementos de .store de clients, pero se debe añadir un elemento extra que se llamará ADMIN:
 
 ```html
 
@@ -41,6 +41,6 @@
 
 ```
 
-- Al seleccionar un elemento listado, se debe persistir el valor seleccionado en el .store de clients y consumir el servicio sns/bo/schema/switch, para poder obtener finalmente el customer-token que se utilizará para setear como header en las peticiones a los servicios de orca que NO tengan el prefijo /bo/
-- Al seleccionar el elemento ORCA (elemento que añadimos al listado de forma controlada), debe funcionar como un "clean" se borra el valor seleccionado en el .store de clients y se elimina el customer-token
+- Al seleccionar un elemento listado, se debe persistir el valor seleccionado en el .store de clients y consumir el servicio api/bo/schema/switch, para poder obtener finalmente el customer-token que se utilizará para setear como header en las peticiones a los servicios de API que NO tengan el prefijo /bo/
+- Al seleccionar el elemento ADMIN (elemento que añadimos al listado de forma controlada), debe funcionar como un "clean" se borra el valor seleccionado en el .store de clients y se elimina el customer-token
 - Recuerda usar el nuevo control-flow, el ejemplo compartido viene de documentación no actualizada de primeng

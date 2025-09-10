@@ -191,7 +191,7 @@ The functional interceptor uses a configuration-based approach that's both flexi
 
 ```typescript
 // main.ts or app.config.ts
-import { httpInterceptor, configureHttpInterceptor } from 'customer-features';
+import { httpInterceptor, configureHttpInterceptor } from 'shared-features';
 
 // Configure before app initialization
 configureHttpInterceptor({
@@ -242,7 +242,7 @@ interface HttpInterceptorConfig {
 
 ```typescript
 // apps/backoffice-client/src/main.ts
-import { configureHttpInterceptor } from 'customer-features';
+import { configureHttpInterceptor } from 'shared-features';
 
 configureHttpInterceptor({
   authStorageKey: 'backoffice-user-data',
@@ -266,7 +266,7 @@ configureHttpInterceptor({
 
 ```typescript
 // apps/customer-client/src/main.ts
-import { configureHttpInterceptor } from 'customer-features';
+import { configureHttpInterceptor } from 'shared-features';
 
 configureHttpInterceptor({
   authStorageKey: 'customer-user-data',
@@ -298,7 +298,7 @@ The interceptor supports per-request timeout configuration using Angular's HttpC
 
 ```typescript
 import { HttpContext } from '@angular/common/http';
-import { TIMEOUT_CONFIG, withTimeout } from 'customer-features';
+import { TIMEOUT_CONFIG, withTimeout } from 'shared-features';
 
 // Method 1: Using helper function
 this.http.get('/api/slow-endpoint', withTimeout(30000)).subscribe(response => {
@@ -515,7 +515,7 @@ The functional interceptor is designed to be easily testable without complex moc
 import { TestBed } from '@angular/core/testing';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { httpInterceptor, configureHttpInterceptor } from 'customer-features';
+import { httpInterceptor, configureHttpInterceptor } from 'shared-features';
 
 describe('UserService', () => {
   let service: UserService;
@@ -940,4 +940,4 @@ The migration from class-based to functional HTTP interceptors has delivered sig
 
 The current implementation provides a solid foundation for future enhancements while maintaining excellent performance and developer experience. Follow the best practices outlined in this guide to ensure optimal performance and maintainability in your applications.
 
-For questions or issues not covered in this guide, refer to the comprehensive test suite in `libs/customer-features/src/lib/shared/utils/http-interceptor.spec.ts` for additional usage examples and edge case handling.
+For questions or issues not covered in this guide, refer to the comprehensive test suite in `libs/shared-features/src/lib/shared/utils/http-interceptor.spec.ts` for additional usage examples and edge case handling.

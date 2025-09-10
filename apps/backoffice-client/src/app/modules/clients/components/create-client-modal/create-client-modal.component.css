@@ -1,8 +1,0 @@
-@reference "tailwindcss";
-
-/* Grid responsive adjustments */
-@media (max-width: 768px) {
-  .grid-cols-1.md\:grid-cols-2 {
-    @apply grid-cols-1;
-  }
-}

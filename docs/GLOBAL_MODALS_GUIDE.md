@@ -305,14 +305,14 @@ modalService.openClientModal('SIDEBAR');
 this.modalService.clientCreated$.subscribe(event => this.loadClients());
 ```
 
-### Implementación de "Crear Usuario ORCA"
+### Implementación de "Crear Usuario Admin"
 
 ```typescript
 // 1. ModalService con contextos tipados
-modalService.openOrcaUserModal(ORCA_USER_MODAL_CONTEXTS.SIDEBAR);
+modalService.openAdminUserModal(ADMIN_USER_MODAL_CONTEXTS.SIDEBAR);
 
 // 2. Eventos específicos por contexto
-if (event.context === ORCA_USER_MODAL_CONTEXTS.SIDEBAR) {
+if (event.context === ADMIN_USER_MODAL_CONTEXTS.SIDEBAR) {
   this.loadUsers();
 }
 ```
@@ -375,7 +375,7 @@ this.modalService.entityCreated$.subscribe(event => {
 
 ## Referencias
 
-- **Implementación de referencia**: `CreateClientModalComponent` y `CreateOrcaUserModalComponent`
+- **Implementación de referencia**: `CreateClientModalComponent` y `CreateAdminUserModalComponent`
 - **ModalService completo**: `libs/customer-features/src/lib/shared/services/modal.service.ts`
 - **Menu items**: `libs/customer-features/src/lib/shared/constants/menu-items.ts`
 - **App global**: `apps/backoffice-client/src/app/app.html` y `app.ts`

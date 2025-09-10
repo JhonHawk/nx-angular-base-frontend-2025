@@ -14,8 +14,8 @@
     "module": "preserve",
     "moduleResolution": "bundler",
     "paths": {
-      "customer-features": [
-        "libs/customer-features/src/index.ts"
+      "shared-features": [
+        "libs/shared-features/src/index.ts"
       ]
     },
     "baseUrl": ".",

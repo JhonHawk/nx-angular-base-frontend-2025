@@ -1,0 +1,22 @@
+import { Routes } from '@angular/router';
+import { UnauthenticatedLayout } from 'shared-features';
+import { unauthGuard } from '../../core/guards/auth.guard';
+
+export const authRoutes: Routes = [
+  {
+    path: '',
+    component: UnauthenticatedLayout,
+    canActivate: [unauthGuard],
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('./pages/login/login').then((m) => m.Login),
+      },
+      {
+        path: 'forgot-password',
+        loadComponent: () =>
+          import('./pages/forgot-password/forgot-password').then((m) => m.ForgotPassword),
+      },
+    ],
+  },
+];

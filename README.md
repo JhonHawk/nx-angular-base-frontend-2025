@@ -1,6 +1,6 @@
-# Orca SNS Frontend Web - Monorepo
+# Angular Base Frontend Template - Monorepo
 
-This project is an Nx-powered monorepo containing multiple Angular applications and shared libraries for the Orca SNS system.
+This project is an Nx-powered monorepo template containing multiple Angular applications and consolidated shared libraries for enterprise frontend development.
 
 ## 🚨 CRITICAL RULES
 
@@ -172,7 +172,7 @@ Both applications include a comprehensive dark mode implementation with **zinc c
 - **Signal-Based Reactivity**: Angular v20+ signals for reactive theme changes
 - **System Preference Detection**: Automatically detects and respects user's OS theme preference
 - **Persistent Storage**: Remembers user's theme choice across browser sessions using localStorage
-- **Custom Selector**: Uses `.orca-app-dark` selector (not PrimeNG's default `.p-dark`)
+- **Custom Selector**: Uses `.app-dark` selector (not PrimeNG's default `.p-dark`)
 - **Comprehensive Integration**: Seamless PrimeNG, Tailwind CSS v4, and custom component theming
 - **Zinc Color Palette**: Modernized from gray to zinc for better consistency (`bg-zinc-50`, `dark:bg-zinc-900`)
 
@@ -380,7 +380,7 @@ import { unauthGuard } from './core/guards/auth.guard';
 
 ```bash
 # UI library (shared components and design system)
-npx nx generate @nx/angular:library orca-<name> --buildable --standalone
+npx nx generate @nx/angular:library <name> --buildable --standalone
 
 # Utility library (pure functions, no Angular dependencies)
 npx nx generate @nx/js:library utils-<name> --buildable
@@ -677,14 +677,14 @@ The project uses the modern Tailwind CSS v4 syntax with `@use` directives in `st
 /* Tailwind CSS v4 configuration */
 @use 'tailwindcss';
 @plugin "tailwindcss-primeui";
-@custom-variant dark (&:where(.orca-app-dark, .orca-app-dark *));
+@custom-variant dark (&:where(.app-dark, .app-dark *));
 ```
 
 This configuration provides:
 
 - **@use "tailwindcss"**: Modern CSS module import for Tailwind CSS v4 (replaces old `@import` syntax)
 - **@plugin "tailwindcss-primeui"**: PrimeNG integration plugin for seamless component styling
-- **@custom-variant dark**: Custom dark mode variant using `.orca-app-dark` selector instead of default `.dark`
+- **@custom-variant dark**: Custom dark mode variant using `.app-dark` selector instead of default `.dark`
 - **Zinc Color Palette**: Standardized color scheme replacing gray for better consistency and modern aesthetics
 
 #### **When to Use Each Approach:**
@@ -1014,7 +1014,7 @@ npm run test:all && npm run lint && npm run build:all
 ```bash
 # Format: type(scope): description
 git commit -m "feat(auth): implement login component for backoffice"
-git commit -m "fix(customer-features): correct header dropdown positioning"
+git commit -m "fix(shared-features): correct header dropdown positioning"
 git commit -m "refactor(utils-core): improve AuthUtils type safety"
 git commit -m "docs(readme): add troubleshooting section"
 
@@ -1046,14 +1046,14 @@ Create environment files for each application:
 // apps/backoffice-client/src/environments/environment.ts
 export const environment = {
   production: false,
-  apiUrl: 'https://api-dev.backoffice.orca-sns.com',
+  apiUrl: 'https://api-dev.backoffice.example.com',
   version: '1.0.0',
 };
 
 // apps/backoffice-client/src/environments/environment.prod.ts
 export const environment = {
   production: true,
-  apiUrl: 'https://api.backoffice.orca-sns.com',
+  apiUrl: 'https://api.backoffice.example.com',
   version: '1.0.0',
 };
 ```
@@ -1083,7 +1083,7 @@ CMD ["nginx", "-g", "daemon off;"]
 ## Project Structure
 
 ```
-orca-sns-frontend-web/
+angular-base-frontend-template/
 ├── apps/
 │   ├── backoffice-client/     # Backoffice application
 │   └── customer-client/       # Customer application

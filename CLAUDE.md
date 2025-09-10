@@ -142,11 +142,11 @@ backgroundColor = computed(() => this.isDarkMode() ? '#0f0f0f' : '#ffffff');
 ```typescript
 import { ParticlesBackgroundComponent } from 'customer-features';
 
-<orca-particles-background
+<app-particles-background
   [backgroundColor]="backgroundColor()"
   [particleColor]="particleColor()">
   <div class="content"><!-- content --></div>
-</orca-particles-background>
+</app-particles-background>
 ```
 
 ### FloatLabel Standard

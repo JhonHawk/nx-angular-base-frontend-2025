@@ -1,19 +1,14 @@
 {
-  "name": "orca-sns-frontend-web",
+  "name": "base-frontend-web",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "nx serve backoffice-client",
-    "start:backoffice": "nx serve backoffice-client & nx build customer-features --watch",
-    "start:customer": "nx serve customer-client & nx build customer-features --watch",
-    "start:all": "nx run-many --target=serve --projects=backoffice-client,customer-client --parallel",
-    "build": "nx build backoffice-client",
-    "build:backoffice": "nx build backoffice-client",
-    "build:customer": "nx build customer-client",
-    "build:all": "nx run-many --target=build --projects=backoffice-client,customer-client --parallel",
-    "build:libs": "nx build customer-features",
-    "watch": "nx build backoffice-client --watch --configuration development",
-    "test": "nx test backoffice-client",
+    "start": "nx serve app-client",
+    "start:dev": "nx serve app-client & nx build shared-features --watch",
+    "build": "nx build app-client",
+    "build:libs": "nx build shared-features",
+    "watch": "nx build app-client --watch --configuration development",
+    "test": "nx test app-client",
     "test:all": "nx run-many --target=test --all",
     "lint": "nx run-many --target=lint --all",
     "format": "nx format:write",
@@ -23,8 +18,8 @@
     "affected:lint": "nx affected --target=lint",
     "graph": "nx graph",
     "generate:component": "nx generate @nx/angular:component",
-    "generate:shared-component": "nx generate @nx/angular:component --path=libs/customer-features/src/lib/shared/components/",
-    "generate:module-component": "nx generate @nx/angular:component --path=libs/customer-features/src/lib/modules/"
+    "generate:shared-component": "nx generate @nx/angular:component --path=libs/shared-features/src/lib/shared/components/",
+    "generate:module-component": "nx generate @nx/angular:component --path=libs/shared-features/src/lib/modules/"
   },
   "prettier": {
     "printWidth": 100,

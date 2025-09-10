@@ -1,4 +1,4 @@
-# Development Guide - ORCA SNS Frontend Web
+# Development Guide - Angular Base Frontend Template
 
 ## 🚨 CRITICAL RULES (Non-negotiable)
 
@@ -7,7 +7,7 @@
 
 ## Overview
 
-This comprehensive guide consolidates all essential development patterns, architectures, and practices for the ORCA SNS Frontend Web monorepo. It covers component creation, module organization, barrel file optimization, modal systems, commands reference, and performance considerations.
+This comprehensive guide consolidates all essential development patterns, architectures, and practices for the Angular Base Frontend Template monorepo. It covers component creation, module organization, barrel file optimization, modal systems, commands reference, and performance considerations.
 
 ---
 
@@ -58,7 +58,7 @@ This comprehensive guide consolidates all essential development patterns, archit
 This is an **Nx monorepo** with two distinct Angular applications and a consolidated shared library:
 
 ```
-ORCA SNS Frontend Web/
+Angular Base Frontend Template/
 ├── apps/
 │   ├── backoffice-client/       # Admin interface (VPN-protected APIs)
 │   └── customer-client/         # Customer-facing app (public APIs)
@@ -186,8 +186,8 @@ import { DataGridComponent, UserProfileComponent } from 'customer-features';
   standalone: true,
   imports: [DataGridComponent, UserProfileComponent],
   template: `
-    <orca-data-grid [data]="users"></orca-data-grid>
-    <orca-user-profile [user]="selectedUser"></orca-user-profile>
+    <app-data-grid [data]="users"></app-data-grid>
+    <app-user-profile [user]="selectedUser"></app-user-profile>
   `
 })
 export class UsersComponent {}
@@ -467,7 +467,7 @@ import { Component, ChangeDetectionStrategy, input, output, computed, signal, in
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'orca-example-component',
+  selector: 'app-example-component',
   standalone: true,
   imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -652,14 +652,14 @@ When encountering build errors after barrel file changes:
 ```bash
 # 1. Detect errors
 nx build customer-client
-# Error: TS2305: Module '"customer-features"' has no exported member 'OrcaPreset'
+# Error: TS2305: Module '"customer-features"' has no exported member 'AppPreset'
 
 # 2. Find source
-grep -r "OrcaPreset" libs/customer-features/src
-# Found: libs/customer-features/src/lib/shared/styles/orcapreset.ts
+grep -r "AppPreset" libs/customer-features/src
+# Found: libs/customer-features/src/lib/shared/styles/apppreset.ts
 
 # 3. Add to barrel file
-# export { default as OrcaPreset } from './lib/shared/styles/orcapreset';
+# export { default as AppPreset } from './lib/shared/styles/apppreset';
 
 # 4. Verify fix
 nx build customer-client
@@ -749,7 +749,7 @@ npm run affected:test
 
 ## Summary
 
-This comprehensive development guide provides all essential patterns for successful development in the ORCA SNS Frontend Web monorepo:
+This comprehensive development guide provides all essential patterns for successful development in the Angular Base Frontend Template monorepo:
 
 ### Key Achievements
 - **Consolidated Architecture**: Single barrel file with 90% reduction in complexity

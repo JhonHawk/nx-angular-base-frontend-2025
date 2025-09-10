@@ -17,7 +17,7 @@
 
 - Prettier (ancho 100, `singleQuote: true`). ESLint Nx/Angular por proyecto.
 - Identación 2 espacios; clases/tipos en PascalCase; archivos/selectores en kebab-case (ej.: `clients-list.ts`, `app-clients-list`).
-- Tailwind CSS v4 + PrimeNG: en CSS de componente usa `@reference "tailwindcss"` para habilitar `@apply`. Modo oscuro con selector `.orca-app-dark`.
+- Tailwind CSS v4 + PrimeNG: en CSS de componente usa `@reference "tailwindcss"` para habilitar `@apply`. Modo oscuro con selector `.app-dark`.
 - Librería con ÚNICO barrel: `libs/customer-features/src/index.ts`. Internamente, usa imports directos o `shared/internal.ts` para evitar dependencias circulares.
 
 ## Pruebas
