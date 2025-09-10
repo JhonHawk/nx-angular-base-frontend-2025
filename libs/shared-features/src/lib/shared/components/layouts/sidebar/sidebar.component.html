@@ -9,8 +9,8 @@
     @if (!isCollapsed()) {
       <!-- User Email (Only when expanded) -->
       <div class="text-center">
-        <div class="text-gray-900 dark:text-gray-100 font-medium text-sm">Usuario ORCA</div>
-        <div class="text-gray-500 dark:text-gray-400 text-xs">admin&#64;orca.sns</div>
+        <div class="text-gray-900 dark:text-gray-100 font-medium text-sm">Usuario</div>
+        <div class="text-gray-500 dark:text-gray-400 text-xs">admin&#64;app.com</div>
       </div>
     }
   </div>
@@ -21,7 +21,7 @@
     <!-- Collapsed state: Use MenuItemComponent for each item -->
     <div class="flex flex-col px-3 gap-2 flex-1 w-full items-center">
       @for (item of menuConfig().items; track item.name + item.routerLink) {
-        <orca-menu-item
+        <app-menu-item
           [item]="item"
           [isCollapsed]="true"
           (itemClick)="onItemClick($event)"

@@ -2,7 +2,7 @@ import { Component, input, output, ChangeDetectionStrategy } from '@angular/core
 import { ButtonModule } from 'primeng/button';
 
 @Component({
-  selector: 'orca-empty-state',
+  selector: 'app-empty-state',
   imports: [ButtonModule],
   templateUrl: './empty-state.component.html',
   styleUrl: './empty-state.component.css',

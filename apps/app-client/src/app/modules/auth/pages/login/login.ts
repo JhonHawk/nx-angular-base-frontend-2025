@@ -55,7 +55,7 @@ export class Login {
   backgroundColor = computed(() => (this.isDarkMode() ? '#0f0f0f' : '#ffffff'));
   particleColor = computed(() => (this.isDarkMode() ? '#ffffff' : '#2d2d2d'));
   logoSrc = computed(() =>
-    this.isDarkMode() ? 'assets/images/orca-logo-white.svg' : 'assets/images/orca-logo-black.svg',
+    this.isDarkMode() ? 'assets/images/app-logo-white.svg' : 'assets/images/app-logo-black.svg',
   );
 
   onSubmit() {

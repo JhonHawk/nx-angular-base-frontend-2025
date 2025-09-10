@@ -7,8 +7,8 @@
 }
 
 /* Background image utility class (cannot be replaced with standard utilities due to custom path) */
-.bg-orca-ai {
-  background-image: url('/assets/images/orca-ai.png');
+.bg-app-ai {
+  background-image: url('/assets/images/app-ai.png');
   background-position: left;
 }
 

@@ -10,14 +10,14 @@ import { BackOfficeUser } from '../../types/team.types';
 import { ToastService } from '../../../../core/services/toast.service';
 
 @Component({
-  selector: 'app-delete-orca-user-modal',
+  selector: 'app-delete-user-modal',
   standalone: true,
   imports: [CommonModule, ButtonModule],
   templateUrl: './delete-user-modal.component.html',
   styleUrl: './delete-user-modal.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DeleteOrcaUserModalComponent {
+export class DeleteUserModalComponent {
   private teamService = inject(TeamService);
   private toastService = inject(ToastService);
   private dialogRef = inject(DynamicDialogRef);

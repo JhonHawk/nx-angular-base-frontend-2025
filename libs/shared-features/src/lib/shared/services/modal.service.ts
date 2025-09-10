@@ -4,15 +4,15 @@ import {
   CUSTOMER_USER_MODAL_CONFIG,
   CustomerUserModalContext,
   ModalContextConfig,
-  ORCA_USER_MODAL_CONFIG,
-  OrcaUserModalContext,
+  USER_MODAL_CONFIG,
+  UserModalContext,
 } from '../constants/modal-contexts';
 
 // Types for the different user models
 // Note: These should match the actual types from their respective modules
-export interface OrcaUserCreatedEvent {
+export interface UserCreatedEvent {
   user: any; // Should be BackOfficeUser but avoiding circular dependency
-  context: OrcaUserModalContext;
+  context: UserModalContext;
   config: ModalContextConfig;
 }
 
@@ -38,75 +38,75 @@ export interface ModalAction {
   providedIn: 'root',
 })
 export class ModalService {
-  // ===== ORCA USER MODAL MANAGEMENT =====
-  // State management for Orca Team users (backoffice)
-  private orcaUserModalVisible = signal(false);
-  private orcaUserModalContext = signal<OrcaUserModalContext | null>(null);
-  private orcaUserModalMetadata = signal<any>(null);
+  // ===== USER MODAL MANAGEMENT =====
+  // State management for Team users (backoffice)
+  private userModalVisible = signal(false);
+  private userModalContext = signal<UserModalContext | null>(null);
+  private userModalMetadata = signal<any>(null);
 
-  // Event stream for orca user creation
-  private orcaUserCreatedSubject = new Subject<OrcaUserCreatedEvent>();
-  public orcaUserCreated$ = this.orcaUserCreatedSubject.asObservable();
+  // Event stream for user creation
+  private userCreatedSubject = new Subject<UserCreatedEvent>();
+  public userCreated$ = this.userCreatedSubject.asObservable();
 
-  // Event stream for orca user modal opening
-  private orcaUserModalOpenedSubject = new Subject<{ context: OrcaUserModalContext; metadata?: any }>();
-  public orcaUserModalOpened$ = this.orcaUserModalOpenedSubject.asObservable();
+  // Event stream for user modal opening
+  private userModalOpenedSubject = new Subject<{ context: UserModalContext; metadata?: any }>();
+  public userModalOpened$ = this.userModalOpenedSubject.asObservable();
 
   /**
-   * Open Orca User creation modal with context
+   * Open User creation modal with context
    */
-  openOrcaUserModal(context: OrcaUserModalContext, metadata?: any) {
+  openUserModal(context: UserModalContext, metadata?: any) {
     console.log(
-      'ModalService.openOrcaUserModal called with context:',
+      'ModalService.openUserModal called with context:',
       context,
       'metadata:',
       metadata,
     );
-    this.orcaUserModalContext.set(context);
-    this.orcaUserModalMetadata.set(metadata);
-    this.orcaUserModalVisible.set(true);
+    this.userModalContext.set(context);
+    this.userModalMetadata.set(metadata);
+    this.userModalVisible.set(true);
     
     // Emit modal opened event for components to react
-    this.orcaUserModalOpenedSubject.next({ context, metadata });
+    this.userModalOpenedSubject.next({ context, metadata });
   }
 
   /**
-   * Close Orca User modal and reset state
+   * Close User modal and reset state
    */
-  closeOrcaUserModal() {
-    console.log('ModalService.closeOrcaUserModal called');
-    this.orcaUserModalVisible.set(false);
-    this.orcaUserModalContext.set(null);
-    this.orcaUserModalMetadata.set(null);
+  closeUserModal() {
+    console.log('ModalService.closeUserModal called');
+    this.userModalVisible.set(false);
+    this.userModalContext.set(null);
+    this.userModalMetadata.set(null);
   }
 
   /**
-   * Handle Orca User creation success
+   * Handle User creation success
    */
-  handleOrcaUserCreated(user: any) {
-    const context = this.orcaUserModalContext();
+  handleUserCreated(user: any) {
+    const context = this.userModalContext();
     if (context) {
-      const config = ORCA_USER_MODAL_CONFIG[context];
-      console.log('ModalService.handleOrcaUserCreated - context:', context, 'config:', config);
+      const config = USER_MODAL_CONFIG[context];
+      console.log('ModalService.handleUserCreated - context:', context, 'config:', config);
 
-      this.orcaUserCreatedSubject.next({
+      this.userCreatedSubject.next({
         user,
         context,
         config,
       });
 
       // Close the modal after successful creation
-      this.closeOrcaUserModal();
+      this.closeUserModal();
     }
   }
 
   // Getters for reactive state
-  isOrcaUserModalVisible() {
-    return this.orcaUserModalVisible;
+  isUserModalVisible() {
+    return this.userModalVisible;
   }
 
-  getCurrentOrcaUserModalContext() {
-    return this.orcaUserModalContext;
+  getCurrentUserModalContext() {
+    return this.userModalContext;
   }
 
   // ===== CUSTOMER USER MODAL MANAGEMENT =====
@@ -250,7 +250,7 @@ export class ModalService {
   constructor() {}
 
   /**
-   * @deprecated Use openOrcaUserModal() instead
+   * @deprecated Use openUserModal() instead
    */
   triggerModalAction(action: ModalAction) {
     console.log('ModalService.triggerModalAction called with:', action, '(DEPRECATED)');
@@ -259,7 +259,7 @@ export class ModalService {
   }
 
   /**
-   * @deprecated Use closeOrcaUserModal() instead
+   * @deprecated Use closeUserModal() instead
    */
   clearModalAction() {
     console.log('ModalService.clearModalAction called (DEPRECATED)');
@@ -267,7 +267,7 @@ export class ModalService {
   }
 
   /**
-   * @deprecated Use openOrcaUserModal() instead
+   * @deprecated Use openUserModal() instead
    */
   triggerCreateUser() {
     console.log('ModalService.triggerCreateUser called! (DEPRECATED)');

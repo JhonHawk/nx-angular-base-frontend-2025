@@ -7,7 +7,7 @@
   @apply rounded-2xl transition-all duration-300 ease-out;
 }
 
-:host-context(.orca-app-dark) .empty-state-container {
+:host-context(.app-dark) .empty-state-container {
   @apply bg-zinc-900;
   @apply border-zinc-700;
 }
@@ -17,7 +17,7 @@
   @apply border-zinc-300;
 }
 
-:host-context(.orca-app-dark) .empty-state-container:hover {
+:host-context(.app-dark) .empty-state-container:hover {
   @apply border-zinc-600;
 }
 
@@ -36,7 +36,7 @@
   animation: pulse 3s ease-in-out infinite;
 }
 
-:host-context(.orca-app-dark) .icon-background {
+:host-context(.app-dark) .icon-background {
   @apply from-zinc-700 to-zinc-600;
 }
 
@@ -45,20 +45,20 @@
   animation: iconFloat 4s ease-in-out infinite;
 }
 
-:host-context(.orca-app-dark) .empty-state-icon {
+:host-context(.app-dark) .empty-state-icon {
   @apply text-zinc-500;
 }
 
 .empty-state-icon.text-primary { @apply text-blue-500; }
-:host-context(.orca-app-dark) .empty-state-icon.text-primary { @apply text-blue-400; }
+:host-context(.app-dark) .empty-state-icon.text-primary { @apply text-blue-400; }
 .empty-state-icon.text-secondary { @apply text-zinc-500; }
-:host-context(.orca-app-dark) .empty-state-icon.text-secondary { @apply text-zinc-400; }
+:host-context(.app-dark) .empty-state-icon.text-secondary { @apply text-zinc-400; }
 .empty-state-icon.text-success { @apply text-green-500; }
-:host-context(.orca-app-dark) .empty-state-icon.text-success { @apply text-green-400; }
+:host-context(.app-dark) .empty-state-icon.text-success { @apply text-green-400; }
 .empty-state-icon.text-info { @apply text-cyan-500; }
-:host-context(.orca-app-dark) .empty-state-icon.text-info { @apply text-cyan-400; }
+:host-context(.app-dark) .empty-state-icon.text-info { @apply text-cyan-400; }
 .empty-state-icon.text-danger { @apply text-red-500; }
-:host-context(.orca-app-dark) .empty-state-icon.text-danger { @apply text-red-400; }
+:host-context(.app-dark) .empty-state-icon.text-danger { @apply text-red-400; }
 
 .content-wrapper {
   @apply text-center space-y-2 max-w-sm;
@@ -68,7 +68,7 @@
   @apply text-xl font-semibold text-zinc-900;
 }
 
-:host-context(.orca-app-dark) .empty-state-title {
+:host-context(.app-dark) .empty-state-title {
   @apply text-zinc-100;
 }
 
@@ -76,7 +76,7 @@
   @apply text-sm text-zinc-600;
 }
 
-:host-context(.orca-app-dark) .empty-state-message {
+:host-context(.app-dark) .empty-state-message {
   @apply text-zinc-400;
 }
 

@@ -9,15 +9,15 @@ import { catchError, of } from 'rxjs';
 // Define interfaces for the organization selector functionality
 // These should be provided by the apps that use this component
 export interface OrganizationOption {
-  id: number | 'ORCA';
+  id: number | 'APP';
   name: string;
-  isOrcaOption: boolean;
+  isAppOption: boolean;
 }
 
 export interface OrganizationSelectorService {
   readonly organizationOptions: () => OrganizationOption[];
   readonly selectedOrganization: () => OrganizationOption | null;
-  selectOrganization(id: number | 'ORCA'): void;
+  selectOrganization(id: number | 'APP'): void;
   loadOrganizations(): void;
 }
 
@@ -26,7 +26,7 @@ export const ORGANIZATION_SELECTOR_SERVICE = new InjectionToken<OrganizationSele
 
 @Component({
   standalone: true,
-  selector: 'orca-top-menu',
+  selector: 'app-top-menu',
   imports: [
     ButtonModule,
     TooltipModule,
@@ -95,7 +95,7 @@ export class TopMenuComponent implements OnInit {
     }
   }
 
-  selectOrganization(organizationId: number | 'ORCA', popover: any) {
+  selectOrganization(organizationId: number | 'APP', popover: any) {
     if (this.organizationService) {
       this.organizationService.selectOrganization(organizationId);
       popover.hide();

@@ -5,7 +5,7 @@ import { DarkModeService } from '../utils/dark-mode.service';
 import { ParticlesBackgroundComponent } from './particles-background/particles-background.component';
 
 @Component({
-  selector: 'orca-not-found',
+  selector: 'app-not-found',
   imports: [ParticlesBackgroundComponent],
   templateUrl: './not-found.html',
   styleUrl: './not-found.css',

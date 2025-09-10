@@ -2,7 +2,7 @@ import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'orca-page-header',
+  selector: 'app-page-header',
   imports: [CommonModule],
   templateUrl: './page-header.html',
   styleUrl: './page-header.css',

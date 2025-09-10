@@ -6,7 +6,7 @@ import { OrganizationService } from '../../../internal';
 
 @Component({
   standalone: true,
-  selector: 'orca-authenticated-layout',
+  selector: 'app-authenticated-layout',
   imports: [RouterOutlet, SidebarComponent, TopMenuComponent],
   templateUrl: './authenticated-layout.html',
   styleUrl: './authenticated-layout.css',

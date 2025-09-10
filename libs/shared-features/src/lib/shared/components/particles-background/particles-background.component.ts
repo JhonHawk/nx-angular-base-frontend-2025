@@ -4,7 +4,7 @@ declare const particlesJS: any;
 
 @Component({
   standalone: true,
-  selector: 'orca-particles-background',
+  selector: 'app-particles-background',
   templateUrl: './particles-background.component.html',
   styleUrl: './particles-background.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

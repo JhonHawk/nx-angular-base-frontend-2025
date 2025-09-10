@@ -5,7 +5,7 @@ import { DarkModeService } from '../../../utils/dark-mode.service';
 
 @Component({
   standalone: true,
-  selector: 'orca-unauthenticated-layout',
+  selector: 'app-unauthenticated-layout',
   imports: [RouterOutlet, NgClass],
   templateUrl: './unauthenticated-layout.html',
   styleUrl: './unauthenticated-layout.css',

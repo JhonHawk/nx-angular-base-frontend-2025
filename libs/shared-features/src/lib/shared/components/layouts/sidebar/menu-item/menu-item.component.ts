@@ -14,21 +14,21 @@ import { MenuItem } from '../../../../services/menu.service';
  * @example
  * ```html
  * <!-- Basic usage with a simple menu item -->
- * <orca-menu-item
+ * <app-menu-item
  *   [item]="menuItem"
  *   [isCollapsed]="false"
  *   (itemClick)="onItemClick($event)"
  *   (menuToggle)="onMenuToggle($event)">
- * </orca-menu-item>
+ * </app-menu-item>
  *
  * <!-- In a sidebar with multiple items -->
  * @for (item of menuItems; track item.name) {
- *   <orca-menu-item
+ *   <app-menu-item
  *     [item]="item"
  *     [isCollapsed]="isCollapsed()"
  *     (itemClick)="handleItemClick($event)"
  *     (menuToggle)="handleMenuToggle($event)">
- *   </orca-menu-item>
+ *   </app-menu-item>
  * }
  * ```
  *
@@ -43,7 +43,7 @@ import { MenuItem } from '../../../../services/menu.service';
  */
 @Component({
   standalone: true,
-  selector: 'orca-menu-item',
+  selector: 'app-menu-item',
   imports: [RouterModule, TooltipModule, MenuModule],
   templateUrl: './menu-item.component.html',
   styleUrls: ['./menu-item.component.css'],

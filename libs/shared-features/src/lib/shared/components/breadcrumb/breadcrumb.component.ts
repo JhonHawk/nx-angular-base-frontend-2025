@@ -4,7 +4,7 @@ import { MenuItem } from 'primeng/api';
 import { BreadcrumbService } from '../../internal';
 
 @Component({
-  selector: 'orca-breadcrumb',
+  selector: 'app-breadcrumb',
   standalone: true,
   imports: [BreadcrumbModule],
   templateUrl: './breadcrumb.component.html',

@@ -5,7 +5,7 @@ import { DarkModeService } from '../../../utils/dark-mode.service';
 import { ChartData } from '../chart.types';
 
 @Component({
-  selector: 'orca-pie-chart',
+  selector: 'app-pie-chart',
   standalone: true,
   imports: [ChartModule],
   template: `

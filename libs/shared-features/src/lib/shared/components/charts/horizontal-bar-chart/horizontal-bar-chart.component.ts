@@ -5,7 +5,7 @@ import { DarkModeService } from '../../../utils/dark-mode.service';
 import { ChartData } from '../chart.types';
 
 @Component({
-  selector: 'orca-horizontal-bar-chart',
+  selector: 'app-horizontal-bar-chart',
   standalone: true,
   imports: [ChartModule],
   template: `

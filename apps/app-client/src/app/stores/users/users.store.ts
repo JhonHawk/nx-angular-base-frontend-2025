@@ -1,7 +1,7 @@
 /**
- * Orca Users Store - Simplified Version
+ * Users Store - Simplified Version
  *
- * Store específico para gestión de usuarios del equipo Orca (BackOffice Team)
+ * Store específico para gestión de usuarios del equipo (BackOffice Team)
  * sin polling automático. Los servicios actualizan el store manualmente cuando es necesario.
  */
 

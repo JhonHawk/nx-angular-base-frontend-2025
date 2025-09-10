@@ -1,9 +1,9 @@
 <div class="card">
-  <orca-page-header
-    title="Gestión de Usuarios Orca"
-    description="Administra los usuarios del equipo de Orca"
+  <app-page-header
+    title="Gestión de Usuarios"
+    description="Administra los usuarios del equipo"
   >
-  </orca-page-header>
+  </app-page-header>
 
   <p-table
     #dt
@@ -177,11 +177,11 @@
     <ng-template pTemplate="emptymessage">
       <tr>
         <td colspan="9" class="text-center py-8">
-          <orca-empty-state
+          <app-empty-state
             icon="waves"
             iconSeverity="primary"
-            title="No se encontraron usuarios Orca"
-            message="Sumérjase en el equipo creando el primer usuario"
+            title="No se encontraron usuarios"
+            message="Comience creando el primer usuario"
             [showActionButton]="true"
             actionButtonLabel="Nuevo Usuario"
             actionButtonIcon="pi pi-plus"

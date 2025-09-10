@@ -1,18 +1,18 @@
 // Modal contexts for different types of users and scenarios
 // This file provides type-safe constants to avoid magic strings
 
-// ===== ORCA USER CONTEXTS =====
-// Contexts for Orca Team users (backoffice users)
-export const ORCA_USER_MODAL_CONTEXTS = {
+// ===== USER CONTEXTS =====
+// Contexts for Team users (backoffice users)
+export const USER_MODAL_CONTEXTS = {
   // From sidebar navigation
   SIDEBAR: 'sidebar',
-  // From orca team list page
-  ORCA_TEAM_LIST: 'orca-team-list',
+  // From users list page
+  USERS_LIST: 'users-list',
   
-  // Future contexts for orca-users
-  // ACCOUNT_ASSIGNMENT: 'account-assignment',     // Assign orca-user to customer account
-  // SUPPORT_TICKET: 'support-ticket',            // Assign orca-user to support ticket  
-  // AUDIT_LOG: 'audit-log',                      // Create orca-user from audit context
+  // Future contexts for users
+  // ACCOUNT_ASSIGNMENT: 'account-assignment',     // Assign user to customer account
+  // SUPPORT_TICKET: 'support-ticket',            // Assign user to support ticket  
+  // AUDIT_LOG: 'audit-log',                      // Create user from audit context
 } as const;
 
 // ===== CUSTOMER USER CONTEXTS =====
@@ -32,7 +32,7 @@ export const CUSTOMER_USER_MODAL_CONTEXTS = {
 } as const;
 
 // ===== TYPE DEFINITIONS =====
-export type OrcaUserModalContext = typeof ORCA_USER_MODAL_CONTEXTS[keyof typeof ORCA_USER_MODAL_CONTEXTS];
+export type UserModalContext = typeof USER_MODAL_CONTEXTS[keyof typeof USER_MODAL_CONTEXTS];
 export type CustomerUserModalContext = typeof CUSTOMER_USER_MODAL_CONTEXTS[keyof typeof CUSTOMER_USER_MODAL_CONTEXTS];
 
 // ===== MODAL CONTEXT CONFIGURATION =====
@@ -43,16 +43,16 @@ export interface ModalContextConfig {
   requiresNavigation?: boolean;   // Legacy: if requires navigation (to be removed)
 }
 
-// Configuration for Orca User modal contexts
-export const ORCA_USER_MODAL_CONFIG: Record<OrcaUserModalContext, ModalContextConfig> = {
-  [ORCA_USER_MODAL_CONTEXTS.SIDEBAR]: {
+// Configuration for User modal contexts
+export const USER_MODAL_CONFIG: Record<UserModalContext, ModalContextConfig> = {
+  [USER_MODAL_CONTEXTS.SIDEBAR]: {
     autoRefresh: false,
-    successMessage: 'Usuario Orca creado exitosamente',
+    successMessage: 'Usuario creado exitosamente',
     requiresNavigation: false
   },
-  [ORCA_USER_MODAL_CONTEXTS.ORCA_TEAM_LIST]: {
+  [USER_MODAL_CONTEXTS.USERS_LIST]: {
     autoRefresh: true,
-    successMessage: 'Usuario Orca creado y visible en la lista',
+    successMessage: 'Usuario creado y visible en la lista',
     requiresNavigation: false
   }
 };

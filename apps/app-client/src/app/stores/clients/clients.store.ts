@@ -22,9 +22,9 @@ interface ExtendedClient extends Client {
 }
 
 export interface OrganizationOption {
-  id: number | 'ORCA';
+  id: number | 'APP';
   name: string;
-  isOrcaOption: boolean;
+  isAppOption: boolean;
 }
 
 @Injectable({
@@ -102,14 +102,14 @@ export class ClientsStore {
     const clientOptions: OrganizationOption[] = activeClients.map((client) => ({
       id: client.id,
       name: client.name,
-      isOrcaOption: false,
+      isAppOption: false,
     }));
 
-    // Add ORCA option at the beginning
-    return [{ id: 'ORCA', name: 'ORCA', isOrcaOption: true }, ...clientOptions];
+    // Add APP option at the beginning
+    return [{ id: 'APP', name: 'APP', isAppOption: true }, ...clientOptions];
   });
 
-  readonly isOrcaSelected = computed(() => this.selectedClient() === null);
+  readonly isAppSelected = computed(() => this.selectedClient() === null);
 
   constructor() {
     // Load persisted organization selection
@@ -258,7 +258,7 @@ export class ClientsStore {
   }
 
   /**
-   * Clears the selected client and customer token (ORCA selection)
+   * Clears the selected client and customer token (APP selection)
    */
   clearSelectedClient(): void {
     this._selectedClient.set(null);

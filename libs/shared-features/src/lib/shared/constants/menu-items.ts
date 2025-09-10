@@ -1,6 +1,6 @@
 // Menu items for customer client
 import { MenuItem } from '../services/menu.service';
-import { ORCA_USER_MODAL_CONTEXTS } from './modal-contexts';
+import { USER_MODAL_CONTEXTS } from './modal-contexts';
 
 let modalService: any = null;
 let router: any = null;
@@ -23,16 +23,16 @@ function createPlaceholderCommand(featureName: string) {
   };
 }
 
-// Create Orca user creation command (type-safe with context)
-function createOrcaUserCommand() {
+// Create user creation command (type-safe with context)
+function createNewUserCommand() {
   return () => {
-    console.log('createOrcaUserCommand executed - modalService available:', !!modalService);
+    console.log('createNewUserCommand executed - modalService available:', !!modalService);
     if (modalService) {
-      console.log('Opening Orca user modal with SIDEBAR context');
+      console.log('Opening user modal with SIDEBAR context');
       // Direct modal opening - no navigation needed!
-      modalService.openOrcaUserModal(ORCA_USER_MODAL_CONTEXTS.SIDEBAR);
+      modalService.openUserModal(USER_MODAL_CONTEXTS.SIDEBAR);
     } else {
-      console.warn('createOrcaUserCommand: ModalService not available');
+      console.warn('createNewUserCommand: ModalService not available');
     }
   };
 }
@@ -53,15 +53,15 @@ function createClientCommand() {
 
 // Legacy function for backwards compatibility (will be removed)
 /**
- * @deprecated Use createOrcaUserCommand() instead
+ * @deprecated Use createUserCommand() instead
  */
 function createUserCommand() {
   return () => {
     console.log('createUserCommand executed (DEPRECATED) - router:', !!router, 'modalService:', !!modalService);
     if (router && modalService) {
-      console.log('Navigating to /orca-team first...');
-      // Navigate to orca-team first to ensure component is loaded
-      router.navigate(['/orca-team']).then(() => {
+      console.log('Navigating to /users-list first...');
+      // Navigate to users-list first to ensure component is loaded
+      router.navigate(['/users-list']).then(() => {
         console.log('Navigation complete, triggering modal with delay...');
         // Small delay to ensure component is initialized and subscribed
         setTimeout(() => {
@@ -194,19 +194,19 @@ export const backofficeMenuItems: MenuItem[] = [
     ],
   },
   {
-    name: 'Orca Team',
+    name: 'Team',
     icon: 'pi pi-users',
     root: true,
     children: [
       {
         name: 'Listado de usuarios',
         icon: 'pi pi-user',
-        routerLink: '/orca-team',
+        routerLink: '/users-list',
       },
       {
-        name: 'Crear usuario Orca',
+        name: 'Crear usuario',
         icon: 'pi pi-plus',
-        command: createOrcaUserCommand(),
+        command: createNewUserCommand(),
       },
     ],
   },

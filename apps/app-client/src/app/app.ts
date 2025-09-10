@@ -10,7 +10,7 @@ import { ToastModule } from 'primeng/toast';
 import { StyleClassModule } from 'primeng/styleclass';
 import { DialogModule } from 'primeng/dialog';
 import { filter, take } from 'rxjs/operators';
-import { CreateOrcaUserModalComponent } from './modules/users/components/create-user-modal/create-user-modal.component';
+import { CreateUserModalComponent } from './modules/users/components/create-user-modal/create-user-modal.component';
 
 @Component({
   standalone: true,
@@ -19,7 +19,7 @@ import { CreateOrcaUserModalComponent } from './modules/users/components/create-
     ToastModule,
     StyleClassModule,
     DialogModule,
-    CreateOrcaUserModalComponent,
+    CreateUserModalComponent,
   ],
   selector: 'app-root',
   templateUrl: './app.html',
@@ -31,7 +31,7 @@ export class App implements OnInit {
   private darkModeService = inject(DarkModeService);
   protected modalService = inject(ModalService);
 
-  @ViewChild('orcaUserModal') orcaUserModal!: CreateOrcaUserModalComponent;
+  @ViewChild('userModal') userModal!: CreateUserModalComponent;
 
   ngOnInit() {
     this.configureHttpInterceptorSettings();
@@ -80,11 +80,11 @@ export class App implements OnInit {
   // Handle modal close to reset form
   handleModalClose() {
     // Reset the form in the modal component
-    if (this.orcaUserModal) {
-      this.orcaUserModal.resetForm();
+    if (this.userModal) {
+      this.userModal.resetForm();
     }
     // Close the modal
-    this.modalService.closeOrcaUserModal();
+    this.modalService.closeUserModal();
   }
 
 }

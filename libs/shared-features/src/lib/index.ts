@@ -11,13 +11,13 @@ export { sharedConstants } from './shared/constants/shared-constants';
 
 // Modal contexts and types
 export { 
-  ORCA_USER_MODAL_CONTEXTS, 
+  USER_MODAL_CONTEXTS, 
   CUSTOMER_USER_MODAL_CONTEXTS,
-  ORCA_USER_MODAL_CONFIG,
+  USER_MODAL_CONFIG,
   CUSTOMER_USER_MODAL_CONFIG
 } from './shared/constants/modal-contexts';
 export type { 
-  OrcaUserModalContext, 
+  UserModalContext, 
   CustomerUserModalContext, 
   ModalContextConfig 
 } from './shared/constants/modal-contexts';
@@ -139,7 +139,7 @@ export { ModalService } from './shared/services/modal.service';
 
 // Modal service types
 export type { 
-  OrcaUserCreatedEvent, 
+  UserCreatedEvent, 
   CustomerUserCreatedEvent, 
   ModalAction 
 } from './shared/services/modal.service';
@@ -167,7 +167,7 @@ export {
 
 // ===== STYLES =====
 // PrimeNG Theme Preset
-export { default as OrcaPreset } from './shared/styles/orcapreset';
+export { default as AppPreset } from './shared/styles/apppreset';
 
 // Note: CSS/SCSS styles don't need barrel files - imported directly in components
 

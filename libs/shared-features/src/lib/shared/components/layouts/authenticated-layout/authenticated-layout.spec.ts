@@ -23,9 +23,9 @@ const mockDarkModeService = {
 };
 
 const mockModalService = {
-  orcaUserCreated$: of(),
+  userCreated$: of(),
   modalAction$: of(),
-  closeOrcaUserModal: jest.fn()
+  closeUserModal: jest.fn()
 };
 
 describe('AuthenticatedLayout', () => {

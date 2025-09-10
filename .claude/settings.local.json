@@ -54,7 +54,6 @@
     "deny": [],
     "ask": [],
     "additionalDirectories": [
-      "X:\\orca\\orca-sns-frontend-web"
     ]
   },
   "enableAllProjectMcpServers": true,

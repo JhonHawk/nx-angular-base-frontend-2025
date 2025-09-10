@@ -11,7 +11,7 @@ import { MessageService } from 'primeng/api';
 import {
   httpInterceptor,
   configureHttpInterceptor,
-  OrcaPreset,
+  AppPreset,
   ORGANIZATION_SELECTOR_SERVICE,
 } from 'shared-features';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -35,9 +35,9 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     providePrimeNG({
       theme: {
-        preset: OrcaPreset,
+        preset: AppPreset,
         options: {
-          darkModeSelector: '.orca-app-dark',
+          darkModeSelector: '.app-dark',
           cssLayer: {
             name: 'primeng',
             order: 'theme, base, primeng',

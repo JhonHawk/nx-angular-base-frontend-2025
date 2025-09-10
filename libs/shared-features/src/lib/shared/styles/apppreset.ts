@@ -1,7 +1,7 @@
 import { definePreset } from '@primeuix/themes';
 import Aura from '@primeuix/themes/aura';
 
-const OrcaPreset = definePreset(Aura, {
+const AppPreset = definePreset(Aura, {
   semantic: {
     primary: {
       50: '{zinc.50}',
@@ -26,4 +26,4 @@ const OrcaPreset = definePreset(Aura, {
   },
 });
 
-export default OrcaPreset;
+export default AppPreset;

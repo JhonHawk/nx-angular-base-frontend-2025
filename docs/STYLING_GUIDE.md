@@ -296,9 +296,9 @@ const AppPreset = definePreset(Aura, {
 // app.config.ts (both applications)
 providePrimeNG({
   theme: {
-    preset: OrcaPreset,
+    preset: AppPreset,
     options: {
-      darkModeSelector: '.orca-app-dark',
+      darkModeSelector: '.app-dark',
     },
   },
 }),
@@ -418,7 +418,7 @@ describe('Component with Dark Mode', () => {
     darkModeService.setDarkMode(true);
     fixture.detectChanges();
     
-    expect(document.documentElement).toHaveClass('orca-app-dark');
+    expect(document.documentElement).toHaveClass('app-dark');
   });
 });
 ```
@@ -440,7 +440,7 @@ describe('Component with Dark Mode', () => {
 ```
 
 **Dark Mode Not Applying:**
-- Verify `.orca-app-dark` selector in PrimeNG config
+- Verify `.app-dark` selector in PrimeNG config
 - Check Tailwind dark variant configuration
 - Ensure service injection in main app component
 
@@ -453,7 +453,7 @@ describe('Component with Dark Mode', () => {
 
 ## Summary
 
-The comprehensive styling migration has successfully modernized the ORCA SNS Frontend Web application with:
+The comprehensive styling migration has successfully modernized the Angular Base Frontend application with:
 
 ### Technical Excellence
 - **70% CSS bundle reduction** with maintained functionality

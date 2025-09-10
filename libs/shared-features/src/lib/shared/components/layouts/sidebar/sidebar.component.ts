@@ -16,7 +16,7 @@ import { setModalService, setRouter } from '../../../constants/menu-items';
 
 @Component({
   standalone: true,
-  selector: 'orca-sidebar',
+  selector: 'app-sidebar',
   imports: [RouterModule, TooltipModule, ButtonModule, PanelMenuModule, MenuItemComponent],
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css'],

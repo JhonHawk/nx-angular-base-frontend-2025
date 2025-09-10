@@ -23,21 +23,21 @@ export class BackofficeOrganizationSelectorService implements OrganizationSelect
   selectedOrganization = computed((): OrganizationOption | null => {
     const selectedClient = this.clientsStore.selectedClient();
     if (!selectedClient) {
-      return { id: 'ORCA', name: 'ORCA', isOrcaOption: true };
+      return { id: 'APP', name: 'APP', isAppOption: true };
     }
     return {
       id: selectedClient.id,
       name: selectedClient.name,
-      isOrcaOption: false,
+      isAppOption: false,
     };
   });
 
-  selectOrganization(id: number | 'ORCA'): void {
+  selectOrganization(id: number | 'APP'): void {
     this.schemaSwitchService.selectOrganization(id).subscribe({
       next: () => {
         // Show success message only when operation succeeds
-        if (id === 'ORCA') {
-          this.toastService.showSuccess('Éxito', 'Cambiado al contexto ORCA');
+        if (id === 'APP') {
+          this.toastService.showSuccess('Éxito', 'Cambiado al contexto APP');
         } else {
           const selectedClient = this.clientsStore.getClientById(id as number);
           if (selectedClient) {

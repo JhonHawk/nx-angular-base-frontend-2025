@@ -52,7 +52,7 @@ describe('NotFoundComponent', () => {
 
   it('should have particles background component', () => {
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('orca-particles-background')).toBeTruthy();
+    expect(compiled.querySelector('app-particles-background')).toBeTruthy();
   });
 
   describe('Dark Mode Integration', () => {

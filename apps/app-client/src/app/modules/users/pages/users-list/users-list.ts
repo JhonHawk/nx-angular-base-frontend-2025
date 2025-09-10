@@ -10,7 +10,7 @@ import { DatePipe } from '@angular/common';
 import {
   EmptyStateComponent,
   ModalService,
-  ORCA_USER_MODAL_CONTEXTS,
+  USER_MODAL_CONTEXTS,
   PageHeader,
 } from 'shared-features';
 import { ButtonModule } from 'primeng/button';
@@ -30,8 +30,8 @@ import { TeamService } from '../../services/team.service';
 import { AvailableRole, BackOfficeUser } from '../../types/team.types';
 import { ToastService } from '../../../../core/services/toast.service'; // Import simplified Users Store
 import { UsersStore } from '../../../../stores/users/users.store';
-import { CreateOrcaUserModalComponent } from '../../components/create-user-modal/create-user-modal.component';
-import { DeleteOrcaUserModalComponent } from '../../components/delete-user-modal/delete-user-modal.component';
+import { CreateUserModalComponent } from '../../components/create-user-modal/create-user-modal.component';
+import { DeleteUserModalComponent } from '../../components/delete-user-modal/delete-user-modal.component';
 
 @Component({
   selector: 'app-users-list',
@@ -53,7 +53,7 @@ import { DeleteOrcaUserModalComponent } from '../../components/delete-user-modal
   ],
   providers: [DialogService, ConfirmationService],
   templateUrl: './users-list.html',
-  styleUrl: './orca-users-list.css',
+  styleUrl: './users-list.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UsersList implements OnInit, OnDestroy {
@@ -90,9 +90,9 @@ export class UsersList implements OnInit, OnDestroy {
     this.loadAvailableRoles();
 
     // Listen for user creation events (new system)
-    this.userCreatedSubscription = this.modalService.orcaUserCreated$.subscribe((event: any) => {
+    this.userCreatedSubscription = this.modalService.userCreated$.subscribe((event: any) => {
       // Only refresh if the user was created from this context
-      if (event.context === ORCA_USER_MODAL_CONTEXTS.ORCA_TEAM_LIST) {
+      if (event.context === USER_MODAL_CONTEXTS.USERS_LIST) {
         this.loadUsers();
       }
     });
@@ -101,7 +101,7 @@ export class UsersList implements OnInit, OnDestroy {
     this.modalSubscription = this.modalService.modalAction$.subscribe((action) => {
       if (action?.type === 'create-user') {
         this.openNew();
-        this.modalService.closeOrcaUserModal();
+        this.modalService.closeUserModal();
       }
     });
   }
@@ -159,7 +159,7 @@ export class UsersList implements OnInit, OnDestroy {
   }
 
   editUser(user: BackOfficeUser) {
-    const dialogRef = this.dialogService.open(CreateOrcaUserModalComponent, {
+    const dialogRef = this.dialogService.open(CreateUserModalComponent, {
       header: `Editar Usuario - ${user.firstName} ${user.lastName}`,
       width: '800px',
       modal: true,
@@ -181,7 +181,7 @@ export class UsersList implements OnInit, OnDestroy {
 
   // Method to create new user using the same modal
   createUser() {
-    const dialogRef = this.dialogService.open(CreateOrcaUserModalComponent, {
+    const dialogRef = this.dialogService.open(CreateUserModalComponent, {
       header: 'Crear Nuevo Usuario',
       width: '800px',
       modal: true,
@@ -217,7 +217,7 @@ export class UsersList implements OnInit, OnDestroy {
   }
 
   private deleteUser(user: BackOfficeUser) {
-    const dialogRef = this.dialogService.open(DeleteOrcaUserModalComponent, {
+    const dialogRef = this.dialogService.open(DeleteUserModalComponent, {
       header: 'Confirmar Eliminación',
       width: '600px',
       modal: true,

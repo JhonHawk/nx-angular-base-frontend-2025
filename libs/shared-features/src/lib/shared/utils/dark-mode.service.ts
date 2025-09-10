@@ -5,7 +5,7 @@ import { Injectable, signal, effect, DestroyRef, inject } from '@angular/core';
 })
 export class DarkModeService {
   private readonly STORAGE_KEY = 'theme-preference';
-  private readonly DARK_CLASS = 'orca-app-dark';
+  private readonly DARK_CLASS = 'app-dark';
   private readonly destroyRef = inject(DestroyRef);
   private readonly mediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
   

@@ -3,7 +3,7 @@
 
 @plugin "tailwindcss-primeui";
 /* Custom variant for dark mode */
-@variant dark (&:where(.orca-app-dark, .orca-app-dark *));
+@variant dark (&:where(.app-dark, .app-dark *));
 
 :root {
   /* CSS custom properties for theming */
@@ -118,7 +118,7 @@ body {
 }
 
 /* Dark mode global adjustments */
-.orca-app-dark {
+.app-dark {
   color-scheme: dark;
 
   /* Override CSS variables for dark mode */

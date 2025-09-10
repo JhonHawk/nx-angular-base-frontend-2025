@@ -35,7 +35,7 @@ import { ToastService } from '../../../../core/services/toast.service';
 import { ModalService } from 'shared-features';
 
 @Component({
-  selector: 'app-create-orca-user-modal',
+  selector: 'app-create-user-modal',
   standalone: true,
   imports: [
     CommonModule,
@@ -51,7 +51,7 @@ import { ModalService } from 'shared-features';
   styleUrl: './create-user-modal.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreateOrcaUserModalComponent implements OnInit {
+export class CreateUserModalComponent implements OnInit {
   private teamService = inject(TeamService);
   private toastService = inject(ToastService);
   private fb = inject(FormBuilder);
@@ -100,7 +100,7 @@ export class CreateOrcaUserModalComponent implements OnInit {
     }
 
     // Listen for modal open events from ModalService
-    this.modalService.orcaUserModalOpened$
+    this.modalService.userModalOpened$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
         // Load roles when modal is opened from global instance

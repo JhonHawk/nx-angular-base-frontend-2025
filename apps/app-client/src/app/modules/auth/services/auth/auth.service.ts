@@ -120,7 +120,7 @@ export class AuthService {
     localStorage.removeItem('backoffice-token-type');
     localStorage.removeItem('backoffice-expires-in');
 
-    // Clear selected organization (reset to ORCA)
+    // Clear selected organization (reset to APP)
     this.clientsStore.clearSelectedClient();
 
     // Reset signals

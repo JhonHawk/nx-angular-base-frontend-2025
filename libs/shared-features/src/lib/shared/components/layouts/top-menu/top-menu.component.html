@@ -20,7 +20,7 @@
     </button>
 
     <!-- Breadcrumb Navigation -->
-    <orca-breadcrumb />
+    <app-breadcrumb />
   </div>
 
   <!-- Right section - Controls -->
@@ -49,10 +49,10 @@
                 <li 
                   class="organization-item"
                   [class.selected]="selectedOrganization()?.id === option.id"
-                  [class.orca-option]="option.isOrcaOption"
+                  [class.app-option]="option.isAppOption"
                   (click)="selectOrganization(option.id, orgPopover)"
                 >
-                  @if (option.isOrcaOption) {
+                  @if (option.isAppOption) {
                     <i class="pi pi-home organization-icon"></i>
                   } @else {
                     <i class="pi pi-building organization-icon"></i>

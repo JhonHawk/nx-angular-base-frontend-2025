@@ -5,7 +5,7 @@ import { DarkModeService } from '../../../utils/dark-mode.service';
 import { ChartData } from '../chart.types';
 
 @Component({
-  selector: 'orca-line-chart',
+  selector: 'app-line-chart',
   standalone: true,
   imports: [ChartModule],
   template: `

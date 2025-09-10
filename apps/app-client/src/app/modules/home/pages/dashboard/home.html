@@ -1,9 +1,9 @@
 <!-- Page Header -->
-<orca-page-header
+<app-page-header
   title="Panel de Administración"
   description="Dashboard principal con métricas y estadísticas del sistema"
 >
-</orca-page-header>
+</app-page-header>
 
 <!-- Content Area -->
 <div class="p-8 w-full animate-fade-in-up">
@@ -11,48 +11,48 @@
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12 animate-stagger-children">
     <!-- Row 1 -->
     <div class="animate-chart-item" style="animation-delay: 0.1s">
-      <orca-vertical-bar-chart title="Rendimiento de Ventas" [chartData]="salesData">
-      </orca-vertical-bar-chart>
+      <app-vertical-bar-chart title="Rendimiento de Ventas" [chartData]="salesData">
+      </app-vertical-bar-chart>
     </div>
 
     <div class="animate-chart-item" style="animation-delay: 0.2s">
-      <orca-line-chart title="Crecimiento de Usuarios" [chartData]="userGrowthChartData">
-      </orca-line-chart>
+      <app-line-chart title="Crecimiento de Usuarios" [chartData]="userGrowthChartData">
+      </app-line-chart>
     </div>
 
     <div class="animate-chart-item" style="animation-delay: 0.3s">
-      <orca-doughnut-chart title="Uso por Dispositivos" [chartData]="deviceData">
-      </orca-doughnut-chart>
+      <app-doughnut-chart title="Uso por Dispositivos" [chartData]="deviceData">
+      </app-doughnut-chart>
     </div>
 
     <!-- Row 2 -->
     <div class="animate-chart-item" style="animation-delay: 0.4s">
-      <orca-pie-chart title="Participación de Mercado" [chartData]="marketData"> </orca-pie-chart>
+      <app-pie-chart title="Participación de Mercado" [chartData]="marketData"> </app-pie-chart>
     </div>
 
     <div class="animate-chart-item" style="animation-delay: 0.5s">
-      <orca-radar-chart title="Métricas de Rendimiento" [chartData]="performanceData">
-      </orca-radar-chart>
+      <app-radar-chart title="Métricas de Rendimiento" [chartData]="performanceData">
+      </app-radar-chart>
     </div>
 
     <div class="animate-chart-item" style="animation-delay: 0.6s">
-      <orca-horizontal-bar-chart title="Ingresos Mensuales" [chartData]="revenueData">
-      </orca-horizontal-bar-chart>
+      <app-horizontal-bar-chart title="Ingresos Mensuales" [chartData]="revenueData">
+      </app-horizontal-bar-chart>
     </div>
 
     <!-- Row 3 -->
     <div class="animate-chart-item" style="animation-delay: 0.7s">
-      <orca-doughnut-chart title="Satisfacción del Cliente" [chartData]="satisfactionData">
-      </orca-doughnut-chart>
+      <app-doughnut-chart title="Satisfacción del Cliente" [chartData]="satisfactionData">
+      </app-doughnut-chart>
     </div>
 
     <div class="animate-chart-item" style="animation-delay: 0.8s">
-      <orca-line-chart title="Fuentes de Tráfico" [chartData]="trafficData"> </orca-line-chart>
+      <app-line-chart title="Fuentes de Tráfico" [chartData]="trafficData"> </app-line-chart>
     </div>
 
     <div class="animate-chart-item" style="animation-delay: 0.9s">
-      <orca-radar-chart title="Productividad del Equipo" [chartData]="productivityData">
-      </orca-radar-chart>
+      <app-radar-chart title="Productividad del Equipo" [chartData]="productivityData">
+      </app-radar-chart>
     </div>
   </div>
 

@@ -1,22 +1,22 @@
 <router-outlet></router-outlet>
 
-<!-- Global Orca User Creation Modal -->
+<!-- Global User Creation Modal -->
 <p-dialog
-  [visible]="modalService.isOrcaUserModalVisible()()"
+  [visible]="modalService.isUserModalVisible()()"
   (visibleChange)="!$event && handleModalClose()"
-  header="Crear Usuario Orca Team"
+  header="Crear Usuario"
   [modal]="true"
   [closable]="true"
   [draggable]="false"
   [resizable]="false"
   styleClass="w-full max-w-4xl"
 >
-  <app-create-orca-user-modal
-    #orcaUserModal
-    (userCreated)="modalService.handleOrcaUserCreated($event)"
+  <app-create-user-modal
+    #userModal
+    (userCreated)="modalService.handleUserCreated($event)"
     (cancelled)="handleModalClose()"
   >
-  </app-create-orca-user-modal>
+  </app-create-user-modal>
 </p-dialog>
 
 

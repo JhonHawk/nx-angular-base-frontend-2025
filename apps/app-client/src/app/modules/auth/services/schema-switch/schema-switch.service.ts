@@ -82,23 +82,23 @@ export class SchemaSwitchService {
   }
 
   /**
-   * Switch to ORCA (no client selected)
+   * Switch to APP (no client selected)
    * Clears the customer token and returns to default backoffice context
    */
-  switchToOrca(): Observable<void> {
+  switchToApp(): Observable<void> {
     // Clear the selected client and token
     this.clientsStore.clearSelectedClient();
     return of(void 0);
   }
 
   /**
-   * Handle organization selection (client or ORCA)
-   * @param organizationId - The organization ID or 'ORCA'
+   * Handle organization selection (client or APP)
+   * @param organizationId - The organization ID or 'APP'
    * @returns Observable that completes when switch is done
    */
-  selectOrganization(organizationId: number | 'ORCA'): Observable<void> {
-    if (organizationId === 'ORCA') {
-      return this.switchToOrca();
+  selectOrganization(organizationId: number | 'APP'): Observable<void> {
+    if (organizationId === 'APP') {
+      return this.switchToApp();
     } else {
       return this.switchToClient(organizationId).pipe(map(() => void 0));
     }
@@ -121,9 +121,9 @@ export class SchemaSwitchService {
   }
 
   /**
-   * Check if ORCA is currently selected (no client)
+   * Check if APP is currently selected (no client)
    */
-  isOrcaSelected(): boolean {
-    return this.clientsStore.isOrcaSelected();
+  isAppSelected(): boolean {
+    return this.clientsStore.isAppSelected();
   }
 }
