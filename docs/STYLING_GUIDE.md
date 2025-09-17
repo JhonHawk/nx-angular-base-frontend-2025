@@ -473,3 +473,14 @@ The comprehensive styling migration has successfully modernized the Angular Base
 - **Enhanced maintainability** with standardized patterns
 
 The system provides a robust foundation for continued development while delivering immediate performance and user experience benefits.
+
+---
+
+## Autor
+
+**Desarrollado por:** Tricell Software Solutions
+**Proyecto Base:** Angular Base Frontend Template - Styling Guide
+**Versión:** 1.0.0
+**Fecha:** Enero 2025
+
+*Este proyecto base fue creado para facilitar el desarrollo de aplicaciones Angular modernas con mejores prácticas y arquitectura consolidada.*

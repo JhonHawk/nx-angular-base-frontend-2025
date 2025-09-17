@@ -375,3 +375,14 @@ Claude Code provides specialized agents for complex development tasks:
 - Architectural changes → **architect-reviewer**
 - New features → **test-engineer** coverage
 - Performance-critical → **performance-profiler** analysis
+
+---
+
+## Autor
+
+**Desarrollado por:** Tricell Software Solutions
+**Proyecto Base:** Angular Base Frontend Template
+**Versión:** 1.0.0
+**Fecha:** Enero 2025
+
+*Este proyecto base fue creado para facilitar el desarrollo de aplicaciones Angular modernas con mejores prácticas y arquitectura consolidada.*

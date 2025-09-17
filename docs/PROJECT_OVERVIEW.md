@@ -1,5 +1,14 @@
 # Angular Base Frontend Template - Project Overview
 
+## Autor
+
+**Desarrollado por:** Tricell Software Solutions
+**Proyecto Base:** Angular Base Frontend Template
+**Versión:** 1.0.0
+**Fecha:** Enero 2025
+
+---
+
 ## Project Purpose
 
 This Angular Base Frontend Template serves as a foundation for building modern Angular applications with best practices, consolidated architecture, and proven patterns.

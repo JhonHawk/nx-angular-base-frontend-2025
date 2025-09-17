@@ -767,3 +767,14 @@ This comprehensive development guide provides all essential patterns for success
 - **Maintain comprehensive test coverage** with modern patterns
 
 Following these patterns ensures optimal bundle sizes, maintainable code structure, and excellent runtime performance across both applications.
+
+---
+
+## Autor
+
+**Desarrollado por:** Tricell Software Solutions
+**Proyecto Base:** Angular Base Frontend Template - Development Guide
+**Versión:** 1.0.0
+**Fecha:** Enero 2025
+
+*Este proyecto base fue creado para facilitar el desarrollo de aplicaciones Angular modernas con mejores prácticas y arquitectura consolidada.*

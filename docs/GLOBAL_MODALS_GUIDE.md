@@ -379,3 +379,14 @@ this.modalService.entityCreated$.subscribe(event => {
 - **ModalService completo**: `libs/shared-features/src/lib/shared/services/modal.service.ts`
 - **Menu items**: `libs/shared-features/src/lib/shared/constants/menu-items.ts`
 - **App global**: `apps/app-client/src/app/app.html` y `app.ts`
+
+---
+
+## Autor
+
+**Desarrollado por:** Tricell Software Solutions
+**Proyecto Base:** Angular Base Frontend Template - Global Modals Guide
+**Versión:** 1.0.0
+**Fecha:** Enero 2025
+
+*Este proyecto base fue creado para facilitar el desarrollo de aplicaciones Angular modernas con mejores prácticas y arquitectura consolidada.*

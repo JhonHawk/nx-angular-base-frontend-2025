@@ -920,3 +920,14 @@ The migration from class-based to functional HTTP interceptors has delivered sig
 The current implementation provides a solid foundation for future enhancements while maintaining excellent performance and developer experience. Follow the best practices outlined in this guide to ensure optimal performance and maintainability in your applications.
 
 For questions or issues not covered in this guide, refer to the comprehensive test suite in `libs/shared-features/src/lib/shared/utils/http-interceptor.spec.ts` for additional usage examples and edge case handling.
+
+---
+
+## Autor
+
+**Desarrollado por:** Tricell Software Solutions
+**Proyecto Base:** Angular Base Frontend Template - HTTP Interceptor Guide
+**Versión:** 1.0.0
+**Fecha:** Enero 2025
+
+*Este proyecto base fue creado para facilitar el desarrollo de aplicaciones Angular modernas con mejores prácticas y arquitectura consolidada.*

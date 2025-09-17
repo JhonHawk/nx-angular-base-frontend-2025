@@ -2,6 +2,17 @@
 
 This project is an Nx-powered monorepo template containing multiple Angular applications and consolidated shared libraries for enterprise frontend development.
 
+## Autor
+
+**Desarrollado por:** Tricell Software Solutions
+**Proyecto Base:** Angular Base Frontend Template
+**Versión:** 1.0.0
+**Fecha:** Enero 2025
+
+---
+
+*Este proyecto base fue creado para facilitar el desarrollo de aplicaciones Angular modernas con mejores prácticas y arquitectura consolidada.*
+
 ## 🚨 CRITICAL RULES
 
 1. **NEW CONTROL FLOW ONLY**: Never use `*ngIf`, `*ngFor`, `*ngSwitch`. Always use `@if`, `@for`, `@switch`
