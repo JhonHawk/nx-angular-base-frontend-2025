@@ -17,7 +17,7 @@ Este patrón es ideal para:
 #### a) Agregar tipos e interfaces
 
 ```typescript
-// En libs/customer-features/src/lib/shared/services/modal.service.ts
+// En libs/shared-features/src/lib/shared/services/modal.service.ts
 
 // Eventos de creación
 export interface EntityCreatedEvent {
@@ -84,7 +84,7 @@ getCurrentEntityModalContext() {
 #### Crear función de comando simple
 
 ```typescript
-// En libs/customer-features/src/lib/shared/constants/menu-items.ts
+// En libs/shared-features/src/lib/shared/constants/menu-items.ts
 
 function createEntityCommand() {
   return () => {
@@ -376,6 +376,6 @@ this.modalService.entityCreated$.subscribe(event => {
 ## Referencias
 
 - **Implementación de referencia**: `CreateClientModalComponent` y `CreateAdminUserModalComponent`
-- **ModalService completo**: `libs/customer-features/src/lib/shared/services/modal.service.ts`
-- **Menu items**: `libs/customer-features/src/lib/shared/constants/menu-items.ts`
-- **App global**: `apps/backoffice-client/src/app/app.html` y `app.ts`
+- **ModalService completo**: `libs/shared-features/src/lib/shared/services/modal.service.ts`
+- **Menu items**: `libs/shared-features/src/lib/shared/constants/menu-items.ts`
+- **App global**: `apps/app-client/src/app/app.html` y `app.ts`

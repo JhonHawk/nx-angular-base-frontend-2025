@@ -5,7 +5,7 @@ This project is an Nx-powered monorepo template containing multiple Angular appl
 ## 🚨 CRITICAL RULES
 
 1. **NEW CONTROL FLOW ONLY**: Never use `*ngIf`, `*ngFor`, `*ngSwitch`. Always use `@if`, `@for`, `@switch`
-2. **BARREL FILES RESTRICTION**: Only allowed in `customer-features` library. Never create `index.ts` files in applications
+2. **BARREL FILES RESTRICTION**: Only allowed in `shared-features` library. Never create `index.ts` files in applications
 
 ## Contributor Guide & Documentation
 
@@ -97,7 +97,7 @@ modules/[module-name]/
 
 - Some sidebar menu items open modals using the `command` property instead of routing
 - MenuItem interface auto-generates tooltips from the `name` property (no separate tooltip parameter)
-- Customer modules are placed in customer-features library for cross-app reuse
+- App modules are placed in shared-features library for cross-app reuse
 
 **Additional Components**: Components that don't appear in sidebar navigation include:
 
@@ -197,27 +197,22 @@ Animated particle effects for enhanced visual appeal:
 
 | Script                     | Command                                                                              | Description                    | Ports      |
 | -------------------------- | ------------------------------------------------------------------------------------ | ------------------------------ | ---------- |
-| `npm start`                | `nx serve backoffice-client`                                                         | Start backoffice app (default) | 4200       |
-| `npm run start:backoffice` | `nx serve backoffice-client`                                                         | Start administrative interface | 4200       |
-| `npm run start:customer`   | `nx serve customer-client`                                                           | Start customer-facing app      | 4201       |
-| `npm run start:all`        | `nx run-many --target=serve --projects=backoffice-client,customer-client --parallel` | Start both apps simultaneously | 4200, 4201 |
+| `npm start`                | `nx serve app-client`                                                               | Start main app (default)      | 4200       |
+| `npm run start:dev`        | `nx serve app-client --watch`                                                       | Start app with lib watch       | 4200       |
 
 ### Build Scripts
 
 | Script                     | Command                                                                              | Description                                   |
 | -------------------------- | ------------------------------------------------------------------------------------ | --------------------------------------------- |
-| `npm run build`            | `nx build backoffice-client`                                                         | Build backoffice app (default)                |
-| `npm run build:backoffice` | `nx build backoffice-client`                                                         | Build administrative interface for production |
-| `npm run build:customer`   | `nx build customer-client`                                                           | Build customer app for production             |
-| `npm run build:all`        | `nx run-many --target=build --projects=backoffice-client,customer-client --parallel` | Build both applications in parallel           |
-| `npm run build:libs`       | `nx build customer-features`                                                         | Build the consolidated shared library         |
-| `npm run watch`            | `nx build backoffice-client --watch --configuration development`                     | Build backoffice app in watch mode            |
+| `npm run build`            | `nx build app-client`                                                               | Build main app (default)                     |
+| `npm run build:libs`       | `nx build shared-features`                                                          | Build the consolidated shared library         |
+| `npm run watch`            | `nx build app-client --watch --configuration development`                           | Build main app in watch mode                 |
 
 ### Testing Scripts
 
 | Script                  | Command                           | Description                              |
 | ----------------------- | --------------------------------- | ---------------------------------------- |
-| `npm test`              | `nx test backoffice-client`       | Run backoffice app tests (default)       |
+| `npm test`              | `nx test app-client`              | Run main app tests (default)            |
 | `npm run test:all`      | `nx run-many --target=test --all` | Run tests for all projects (apps + libs) |
 | `npm run affected:test` | `nx affected --target=test`       | Run tests only for affected projects     |
 
@@ -245,17 +240,16 @@ Animated particle effects for enhanced visual appeal:
 npm install
 
 # Start development
-npm run start:all        # Both apps
+npm start              # Main app (port 4200)
 # OR
-npm run start:backoffice # Admin interface only (port 4200)
-npm run start:customer   # Customer app only (port 4201)
+npm run start:dev      # App with lib watch
 
 # Run tests and lint
 npm run test:all
 npm run lint
 
 # Build for production
-npm run build:all
+npm run build
 ```
 
 ## Development Guide
@@ -283,12 +277,12 @@ import {
   LoginRequest, // types
   API_ENDPOINTS,
   APP_CONFIG, // constants
-} from 'customer-features';
+} from 'shared-features';
 ```
 
 ### Available Shared Components
 
-#### Layouts (from `customer-features`)
+#### Layouts (from `shared-features`)
 
 - `UnauthenticatedLayout` - Simple layout for login/register pages
 - `AuthenticatedLayout` - Full layout with header, sidebar, and content area
@@ -310,17 +304,15 @@ import {
 Most components should be created within the specific application:
 
 ```bash
-# Login components (different for each app due to different APIs)
-npx nx generate @nx/angular:component login --path=apps/backoffice-client/src/app/modules/auth/components --changeDetection=OnPush --style=css
-npx nx generate @nx/angular:component login --path=apps/customer-client/src/app/modules/auth/components --changeDetection=OnPush --style=css
+# Application components
+npx nx generate @nx/angular:component login --path=apps/app-client/src/app/modules/auth/components --changeDetection=OnPush --style=css
 
 # Dashboard components
-npx nx generate @nx/angular:component dashboard --path=apps/backoffice-client/src/app/modules/dashboard --changeDetection=OnPush --style=css
-npx nx generate @nx/angular:component dashboard --path=apps/customer-client/src/app/modules/dashboard --changeDetection=OnPush --style=css
+npx nx generate @nx/angular:component dashboard --path=apps/app-client/src/app/modules/dashboard --changeDetection=OnPush --style=css
 
 # Feature components
-npx nx generate @nx/angular:component user-management --path=apps/backoffice-client/src/app/modules/management/components --changeDetection=OnPush --style=css
-npx nx generate @nx/angular:component profile --path=apps/customer-client/src/app/modules/profile/components --changeDetection=OnPush --style=css
+npx nx generate @nx/angular:component user-management --path=apps/app-client/src/app/modules/management/components --changeDetection=OnPush --style=css
+npx nx generate @nx/angular:component profile --path=apps/app-client/src/app/modules/profile/components --changeDetection=OnPush --style=css
 ```
 
 #### Shared Components (Only when truly reusable)
@@ -340,13 +332,12 @@ npx nx generate @nx/angular:component libs/customer-features/src/lib/shared/comp
 Services should typically be application-specific due to different APIs:
 
 ```bash
-# Auth services (different endpoints for each app)
-npx nx generate @nx/angular:service apps/backoffice-client/src/app/modules/auth/services/auth
-npx nx generate @nx/angular:service apps/customer-client/src/app/modules/auth/services/auth
+# Auth services
+npx nx generate @nx/angular:service apps/app-client/src/app/modules/auth/services/auth
 
 # Feature services
-npx nx generate @nx/angular:service apps/backoffice-client/src/app/modules/management/services/user-management
-npx nx generate @nx/angular:service apps/customer-client/src/app/modules/profile/services/profile
+npx nx generate @nx/angular:service apps/app-client/src/app/modules/management/services/user-management
+npx nx generate @nx/angular:service apps/app-client/src/app/modules/profile/services/profile
 ```
 
 ### Creating Guards
@@ -354,10 +345,9 @@ npx nx generate @nx/angular:service apps/customer-client/src/app/modules/profile
 Guards are application-specific due to different localStorage keys:
 
 ```bash
-# Create guards manually in each app's core/guards directory
-# Example structure already exists:
-# apps/backoffice-client/src/app/core/guards/auth.guard.ts  (uses 'backoffice-user-data')
-# apps/customer-client/src/app/core/guards/auth.guard.ts    (uses 'customer-user-data')
+# Create guards manually in app's core/guards directory
+# Example structure:
+# apps/app-client/src/app/core/guards/auth.guard.ts  (uses 'user-data')
 
 # Import guards directly (no barrel exports for app-specific code)
 import { authGuard } from './core/guards/auth.guard';
@@ -386,7 +376,7 @@ npx nx generate @nx/js:library shared-<name> --buildable
 Each application has its own routing configuration:
 
 ```typescript
-// apps/backoffice-client/src/app/app.routes.ts
+// apps/app-client/src/app/app.routes.ts
 export const appRoutes: Route[] = [
   // Unauthenticated routes (login, forgot-password)
   {
@@ -410,13 +400,13 @@ export const appRoutes: Route[] = [
 
 ```bash
 # Create new module routes file
-touch apps/backoffice-client/src/app/modules/management/management.routes.ts
+touch apps/app-client/src/app/modules/management/management.routes.ts
 
 # Example module routes structure:
 ```
 
 ```typescript
-// apps/backoffice-client/src/app/modules/management/management.routes.ts
+// apps/app-client/src/app/modules/management/management.routes.ts
 import { Routes } from '@angular/router';
 import { authGuard } from '../../core/guards';
 
@@ -780,7 +770,7 @@ import { LoginComponent } from './modules/auth/components/login';
 
 ### Library Guidelines
 
-1. **Shared Libraries**: Only for code used by both `backoffice-client` AND `customer-client`
+1. **Shared Libraries**: Only for truly reusable code across multiple modules
 2. **UI Components**: Generic, reusable components without business logic
 3. **Utilities**: Pure functions without Angular dependencies
 4. **Types**: Interfaces and types used across applications
@@ -880,8 +870,7 @@ If ports are already in use:
 
 ```bash
 # Use different ports
-npx nx serve backoffice-client --port=4300
-npx nx serve customer-client --port=4301
+npx nx serve app-client --port=4300
 
 # Or kill processes using the ports (Windows)
 netstat -ano | findstr :4200
@@ -1016,16 +1005,14 @@ git commit -m "docs(readme): add troubleshooting section"
 ### Build for Production
 
 ```bash
-# Build all applications for production
-npm run build:all
+# Build application for production
+npm run build
 
-# Build specific application
-npm run build:backoffice
-npm run build:customer
+# Build shared library
+npm run build:libs
 
 # Output directories:
-# dist/backoffice-client/  - Admin interface build
-# dist/customer-client/    - Customer app build
+# dist/app-client/  - Main application build
 ```
 
 ### Environment Configuration
@@ -1033,17 +1020,17 @@ npm run build:customer
 Create environment files for each application:
 
 ```typescript
-// apps/backoffice-client/src/environments/environment.ts
+// apps/app-client/src/environments/environment.ts
 export const environment = {
   production: false,
-  apiUrl: 'https://api-dev.backoffice.example.com',
+  apiUrl: 'https://api-dev.example.com',
   version: '1.0.0',
 };
 
-// apps/backoffice-client/src/environments/environment.prod.ts
+// apps/app-client/src/environments/environment.prod.ts
 export const environment = {
   production: true,
-  apiUrl: 'https://api.backoffice.example.com',
+  apiUrl: 'https://api.example.com',
   version: '1.0.0',
 };
 ```
@@ -1060,11 +1047,11 @@ COPY package*.json ./
 RUN npm ci --only=production
 
 COPY . .
-RUN npm run build:backoffice
+RUN npm run build
 
 # Production stage
 FROM nginx:alpine
-COPY --from=build /app/dist/backoffice-client /usr/share/nginx/html
+COPY --from=build /app/dist/app-client /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/nginx.conf
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
@@ -1075,16 +1062,12 @@ CMD ["nginx", "-g", "daemon off;"]
 ```
 angular-base-frontend-template/
 ├── apps/
-│   ├── backoffice-client/     # Backoffice application
-│   └── customer-client/       # Customer application
+│   └── app-client/            # Main application
 ├── libs/
-│   ├── customer-features/      # Consolidated shared library with UI components & design system
-│   ├── utils-core/            # Pure functions & utilities
-│   ├── shared-types/          # TypeScript types & interfaces
-│   └── shared-constants/      # Application constants
-├── docs/                       # Angular v20+ official documentation
-├── tools/                      # Custom workspace tools
-├── nx.json                     # Nx configuration
+│   └── shared-features/       # Consolidated shared library with UI components & design system
+├── docs/                      # Comprehensive documentation
+├── tools/                     # Custom workspace tools
+├── nx.json                    # Nx configuration
 ├── tsconfig.base.json         # Base TypeScript config
 └── package.json               # Package dependencies
 ```

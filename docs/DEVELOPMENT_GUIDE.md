@@ -17,10 +17,9 @@ This comprehensive guide consolidates all essential development patterns, archit
 
 | Category | Command | Description |
 |----------|---------|-------------|
-| **Start Development** | `npm run start:all` | Start both apps in parallel |
-| | `npm run start:backoffice` | Admin interface (port 4200) |
-| | `npm run start:customer` | Customer app (port 4201) |
-| **Build & Test** | `npm run build:all` | Build both applications |
+| **Start Development** | `npm start` | Start main app (port 4200) |
+| | `npm run start:dev` | Start app with lib watch |
+| **Build & Test** | `npm run build` | Build main application |
 | | `npm run build:libs` | Build shared libraries only |
 | | `npm run test:all` | Run all tests |
 | | `npm run lint` | Lint all projects |
@@ -34,9 +33,8 @@ This comprehensive guide consolidates all essential development patterns, archit
 
 | Command | Description |
 |---------|-------------|
-| `nx test backoffice-client` | Test backoffice application |
-| `nx test customer-client` | Test customer application |
-| `nx test customer-features` | Test consolidated library |
+| `nx test app-client` | Test main application |
+| `nx test shared-features` | Test consolidated library |
 | `nx test <project-name> --coverage` | Run tests with coverage report |
 
 ### Quick Development Workflow
@@ -47,7 +45,7 @@ This comprehensive guide consolidates all essential development patterns, archit
 | 2 | `npm install` | Update dependencies |
 | 3 | `npm run start:all` | Start both applications |
 | 4 | `npm run lint` | Check code quality |
-| 5 | `npm run build:all` | Build both applications |
+| 5 | `npm run build` | Build main application |
 
 ---
 
@@ -60,22 +58,21 @@ This is an **Nx monorepo** with two distinct Angular applications and a consolid
 ```
 Angular Base Frontend Template/
 ├── apps/
-│   ├── backoffice-client/       # Admin interface (VPN-protected APIs)
-│   └── customer-client/         # Customer-facing app (public APIs)
+│   └── app-client/              # Main application
 ├── libs/
-│   └── customer-features/       # Consolidated shared library
+│   └── shared-features/         # Consolidated shared library
 ├── docs/                        # Comprehensive documentation
 └── [configuration files]
 ```
 
-**Critical**: Applications use **different API domains** and **separate authentication flows**. Do not share authentication or API logic between them.
+**Architecture**: Single application with consolidated shared library for maximum code reuse and maintainability.
 
 ### Consolidated Library Architecture
 
 All shared functionality has been consolidated into a **single library** (`customer-features`) following this organizational pattern:
 
 ```
-libs/customer-features/src/lib/
+libs/shared-features/src/lib/
 ├── modules/                          # Business logic modules
 │   ├── users/                        # User management domain
 │   ├── organization-management/      # Organization domain
@@ -99,7 +96,7 @@ libs/customer-features/src/lib/
 
 ### Architecture Overview
 
-The `customer-features` library implements a **minimal barrel files** approach with only **one barrel file** at the root level.
+The `shared-features` library implements a **minimal barrel files** approach with only **one barrel file** at the root level.
 
 **Benefits:**
 - **90% reduction** in barrel files (from 10 to 1)
@@ -111,8 +108,8 @@ The `customer-features` library implements a **minimal barrel files** approach w
 ### Single Barrel File Content
 
 ```typescript
-// libs/customer-features/src/index.ts - ONLY BARREL FILE
-// This is the ONLY barrel file in the customer-features library
+// libs/shared-features/src/index.ts - ONLY BARREL FILE
+// This is the ONLY barrel file in the shared-features library
 
 // ===== SHARED COMPONENTS =====
 // Direct imports from component files (NO intermediate barrels)
@@ -138,12 +135,12 @@ export type { UserData, LoginRequest, LoginResponse } from './lib/shared/types/s
 #### For External Applications (Consumers)
 ```typescript
 // ✅ CORRECT: Import from single barrel file
-import { 
-  AuthenticatedLayout, 
-  MenuService, 
+import {
+  AuthenticatedLayout,
+  MenuService,
   UserData,
   ParticlesBackgroundComponent
-} from 'customer-features';
+} from 'shared-features';
 ```
 
 #### For Internal Library Components
@@ -163,7 +160,7 @@ import { MenuItem } from 'customer-features'; // DON'T DO THIS
 
 #### Step 1: Generate Component
 ```bash
-# Shared components (cross-app usage)
+# Shared components (cross-module usage)
 nx generate @nx/angular:component --path=libs/shared-features/src/lib/shared/components/data-grid
 
 # Module-specific components
@@ -172,7 +169,7 @@ nx generate @nx/angular:component --path=libs/shared-features/src/lib/modules/us
 
 #### Step 2: Export in Main Barrel (ONLY)
 ```typescript
-// libs/customer-features/src/index.ts (ONLY place to add exports)
+// libs/shared-features/src/index.ts (ONLY place to add exports)
 export { DataGridComponent } from './lib/shared/components/data-grid/data-grid.component';
 export { UserProfileComponent } from './lib/modules/users/components/user-profile/user-profile.component';
 ```
@@ -180,7 +177,7 @@ export { UserProfileComponent } from './lib/modules/users/components/user-profil
 #### Step 3: Use in Applications
 ```typescript
 // Applications can now import directly
-import { DataGridComponent, UserProfileComponent } from 'customer-features';
+import { DataGridComponent, UserProfileComponent } from 'shared-features';
 
 @Component({
   standalone: true,
@@ -238,8 +235,8 @@ modules/[module-name]/
 |----------|----------|----------------|---------|
 | **URL-accessible views** | `apps/[app]/modules/[module]/pages/` | Direct local import | `users-list`, `user-create` |
 | **App-specific reusable UI** | `apps/[app]/modules/[module]/components/` | Direct local import | `user-card`, creation modals |
-| **Cross-app shared components** | `libs/customer-features/shared/components/` | `import { Component } from 'customer-features'` | Layouts, common UI |
-| **Domain business logic** | `libs/customer-features/modules/[domain]/` | `import { Service } from 'customer-features'` | User services, utilities |
+| **Cross-app shared components** | `libs/shared-features/shared/components/` | `import { Component } from 'shared-features'` | Layouts, common UI |
+| **Domain business logic** | `libs/shared-features/modules/[domain]/` | `import { Service } from 'shared-features'` | User services, utilities |
 | **Modal creation/editing** | `apps/[app]/modules/[module]/components/modals/` | Direct local import | Simple form modals |
 
 ---
@@ -273,7 +270,7 @@ The modal system provides centralized management through these core services:
 
 ```bash
 # Create modal component for simple forms
-nx generate @nx/angular:component --path=apps/backoffice-client/src/app/modules/users/components/modals/user-create-modal
+nx generate @nx/angular:component --path=apps/app-client/src/app/modules/users/components/modals/user-create-modal
 
 # Example structure:
 modules/users/components/modals/
@@ -379,7 +376,7 @@ export class UserCreateModalComponent {
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ModalManagerService, ModalResult } from 'customer-features';
+import { ModalManagerService, ModalResult } from 'shared-features';
 
 @Component({
   // ...
@@ -546,9 +543,8 @@ export class ExampleComponent {
 ### Current Performance Metrics
 
 **Bundle Sizes:**
-- **Customer Client**: 1.15MB raw, 194.95kB gzipped
-- **Backoffice Client**: 1.15MB raw, 195.03kB gzipped
-- **Customer Features Library**: ~220KB compiled ESM2022 modules
+- **App Client**: 1.15MB raw, 194.95kB gzipped
+- **Shared Features Library**: ~220KB compiled ESM2022 modules
 
 **Key Optimizations:**
 1. **Memory Optimization**: OnPush change detection + signal-based reactivity
@@ -559,9 +555,9 @@ export class ExampleComponent {
 ### Library Performance Breakdown
 
 ```
-Customer-Features Library Composition:
+Shared-Features Library Composition:
 - Components: 116KB compiled
-- Utils: 66KB compiled  
+- Utils: 66KB compiled
 - Services: 21KB compiled
 - Types: 6KB compiled
 - Constants: Minimal overhead
@@ -571,8 +567,7 @@ Customer-Features Library Composition:
 
 ```bash
 # Bundle analysis
-npm run build:customer    # Analyze customer app bundle
-npm run build:backoffice  # Analyze backoffice app bundle
+npm run build             # Analyze main app bundle
 npm run build:libs        # Check library compilation
 
 # Performance monitoring targets
@@ -590,7 +585,7 @@ npm run build:libs        # Check library compilation
 
 ```typescript
 // ✅ Correct for shared components (from applications)
-import { DataTableComponent } from 'customer-features';
+import { DataTableComponent } from 'shared-features';
 
 // ✅ Correct for app-specific components  
 import { UsersList } from './pages/list/users-list';
@@ -599,10 +594,10 @@ import { UsersList } from './pages/list/users-list';
 import { MenuItem, DarkModeService } from '../../internal';
 
 // ❌ Wrong - avoid relative paths for shared code (from applications)
-import { DataTableComponent } from '../../../libs/customer-features/...';
+import { DataTableComponent } from '../../../libs/shared-features/...';
 
 // ❌ Wrong - circular dependency (within library)
-import { MenuItem } from 'customer-features';
+import { MenuItem } from 'shared-features';
 ```
 
 ### Circular Dependency Resolution
@@ -651,18 +646,18 @@ When encountering build errors after barrel file changes:
 **Example Resolution:**
 ```bash
 # 1. Detect errors
-nx build customer-client
-# Error: TS2305: Module '"customer-features"' has no exported member 'AppPreset'
+nx build app-client
+# Error: TS2305: Module '"shared-features"' has no exported member 'AppPreset'
 
 # 2. Find source
-grep -r "AppPreset" libs/customer-features/src
-# Found: libs/customer-features/src/lib/shared/styles/apppreset.ts
+grep -r "AppPreset" libs/shared-features/src
+# Found: libs/shared-features/src/lib/shared/styles/apppreset.ts
 
 # 3. Add to barrel file
 # export { default as AppPreset } from './lib/shared/styles/apppreset';
 
 # 4. Verify fix
-nx build customer-client
+nx build app-client
 # ✅ Build successful
 ```
 
@@ -734,9 +729,8 @@ describe('ExampleComponent', () => {
 npm run test:all
 
 # Test specific projects
-nx test backoffice-client
-nx test customer-client
-nx test customer-features
+nx test app-client
+nx test shared-features
 
 # Test with coverage
 nx test <project-name> --coverage

@@ -335,7 +335,7 @@ Edit → Error → Read → Edit (wastes ~2000+ tokens per cycle)
 ### Common Issues
 
 1. **Test Dependencies**: Router needs `provideRouter([])`, HttpClient needs `provideHttpClient()`
-2. **Build Order**: `nx build customer-features` → applications
+2. **Build Order**: `nx build shared-features` → applications
 3. **Import Errors**: Use `from 'shared-features'` for shared imports
 4. **Component Structure**: Each component needs own directory with `.ts/.html/.css/.spec.ts`
 

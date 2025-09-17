@@ -195,8 +195,7 @@ import { httpInterceptor, configureHttpInterceptor } from 'shared-features';
 
 // Configure before app initialization
 configureHttpInterceptor({
-  authStorageKey: 'backoffice-user-data', // For backoffice-client
-  // authStorageKey: 'customer-user-data',  // For customer-client
+  authStorageKey: 'user-data', // Main application storage key
   defaultTimeout: 10000,
   enableLogging: true,
   logLevel: 'standard',
@@ -238,17 +237,17 @@ interface HttpInterceptorConfig {
 
 ### Application-Specific Configuration
 
-#### Backoffice Client Configuration
+#### Application Configuration
 
 ```typescript
-// apps/backoffice-client/src/main.ts
+// apps/app-client/src/main.ts
 import { configureHttpInterceptor } from 'shared-features';
 
 configureHttpInterceptor({
-  authStorageKey: 'backoffice-user-data',
-  defaultTimeout: 15000, // Longer timeout for admin operations
+  authStorageKey: 'user-data',
+  defaultTimeout: 10000,
   enableLogging: true,
-  logLevel: 'verbose', // Detailed logging for debugging
+  logLevel: 'standard',
   getTokenFromStorage: (key) => {
     const userData = localStorage.getItem(key);
     if (!userData) return null;
@@ -262,21 +261,6 @@ configureHttpInterceptor({
 });
 ```
 
-#### Customer Client Configuration
-
-```typescript
-// apps/customer-client/src/main.ts
-import { configureHttpInterceptor } from 'shared-features';
-
-configureHttpInterceptor({
-  authStorageKey: 'customer-user-data',
-  defaultTimeout: 8000,
-  enableLogging: false, // Minimal logging for production
-  logLevel: 'minimal',
-  maxLogBodySize: 500 // Smaller log bodies for performance
-});
-```
-
 ### Environment-Based Configuration
 
 ```typescript
@@ -284,7 +268,7 @@ configureHttpInterceptor({
 import { environment } from './environments/environment';
 
 configureHttpInterceptor({
-  authStorageKey: environment.production ? 'customer-user-data' : 'customer-user-data-dev',
+  authStorageKey: environment.production ? 'user-data' : 'user-data-dev',
   defaultTimeout: environment.production ? 10000 : 30000,
   enableLogging: !environment.production,
   logLevel: environment.production ? 'minimal' : 'verbose',

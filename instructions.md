@@ -8,8 +8,7 @@
   - technical-writer
   - code-reviewer
   - test-engineer
-- Usa como referencia de seguimiento el archivo ./docs/DEVELOPMENT_TRACKING.md.
 
 ## Actividades
 
-- 
+-
