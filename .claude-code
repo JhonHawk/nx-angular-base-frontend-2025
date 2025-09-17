@@ -1,13 +1,13 @@
 {
-    "optimization": {
-      "alwaysReadBeforeEdit": true,
-      "preferMultiEdit": true,
-      "parallelReads": true,
-      "batchOperations": true,
-    },
-    "workflow": {
-      "readFilesAtSessionStart": true,
-      "minimizeBuildRuns": true,
-      "cacheFileContents": true
-    }
+  "optimization": {
+    "alwaysReadBeforeEdit": true,
+    "preferMultiEdit": true,
+    "parallelReads": true,
+    "batchOperations": true
+  },
+  "workflow": {
+    "readFilesAtSessionStart": true,
+    "minimizeBuildRuns": true,
+    "cacheFileContents": true
   }
+}
